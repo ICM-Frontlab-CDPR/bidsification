@@ -1,0 +1,26 @@
+# Chemins principaux
+paths:
+  raw_root: /Users/hippolyte.dreyfus/Desktop/RAW
+  bids_root: /Users/hippolyte.dreyfus/Desktop/BIDS
+  
+  # Sous-répertoires RAW
+  raw_eeg: eeg/3_fif
+  raw_bhv: bhv/1_raw
+  raw_eye: eye
+
+# Paramètres de l'expérience
+experiment:
+  task: tacs
+  conditions:
+    - SHAM
+    - tACS
+    - tRNS
+  sessions:
+    - ses_1
+    - ses_2
+  expected_runs_per_session: 4
+
+# Paramètres BIDS
+bids:
+  datatype_eeg: eeg
+  datatype_beh: beh
