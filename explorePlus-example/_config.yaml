@@ -1,0 +1,6 @@
+raw_dir: "/neurospin/unicog/protocols/IRMf/ExplorePlus_Meyniel_Paunov_2023/RAW/"
+bids_dir: "/neurospin/unicog/protocols/IRMf/ExplorePlus_Meyniel_Paunov_2023/EXPLORE_PLUS/rawdata/"
+# bids_dir: "/home/hdreyfus/nasShare/projects/EXPLORE_PLUS_dev/rawdata/"
+sss_dir: "/neurospin/unicog/protocols/IRMf/ExplorePlus_Meyniel_Paunov_2023/_old/EXPLORE_PLUS_little/rawdata/sss_config/"
+photodiode_timing_correction: None #TODO in ms
+
