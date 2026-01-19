@@ -1,0 +1,63 @@
+================================================================================
+RAPPORT DE VALIDATION BIDS - HEMIANOTACS
+================================================================================
+
+1. FICHIERS REQUIS
+--------------------------------------------------------------------------------
+✓ dataset_description.json présent
+  - Name: HemianotACS
+  - BIDSVersion: 1.9.0
+✓ participants.tsv présent
+  - 38 participants listés
+
+2. STRUCTURE DES SUJETS
+--------------------------------------------------------------------------------
+Nombre de sujets: 11
+
+  sub-0001:
+    ses-02/eeg: 3 .edf, 5 .json, 3 _channels.tsv
+    ses-03/eeg: 2 .edf, 3 .json, 2 _channels.tsv
+    ses-04/eeg: 4 .edf, 5 .json, 4 _channels.tsv
+
+  sub-0002:
+    ses-02/eeg: 2 .edf, 3 .json, 2 _channels.tsv
+    ses-03/eeg: 3 .edf, 5 .json, 3 _channels.tsv
+    ses-04/eeg: 2 .edf, 3 .json, 2 _channels.tsv
+
+  sub-0008:
+    ses-02/eeg: 2 .edf, 3 .json, 2 _channels.tsv
+    ses-03/eeg: 2 .edf, 4 .json, 2 _channels.tsv
+    ses-04/eeg: 2 .edf, 3 .json, 2 _channels.tsv
+
+3. NOMENCLATURE DES FICHIERS
+--------------------------------------------------------------------------------
+Tasks trouvées:
+  - task-flanker: 41 fichiers
+  - task-rest: 18 fichiers
+  - task-stim: 2 fichiers
+
+4. MÉTADONNÉES JSON
+--------------------------------------------------------------------------------
+Nombre de fichiers JSON sidecar: 61
+
+Exemple: sub-0002_ses-03_task-flanker_acq-pre_run-2_eeg.json
+  Champs présents: TaskName, Manufacturer, PowerLineFrequency, SamplingFrequency, SoftwareFilters, RecordingDuration, RecordingType, EEGReference, EEGGround, EEGPlacementScheme, EEGChannelCount, EOGChannelCount, ECGChannelCount, EMGChannelCount, MiscChannelCount, TriggerChannelCount
+
+5. DOCUMENTATION
+--------------------------------------------------------------------------------
+✓ README présent
+
+================================================================================
+RÉSUMÉ
+================================================================================
+✓ Aucune erreur critique détectée
+
+✓ Aucun avertissement
+
+================================================================================
+RECOMMANDATIONS
+================================================================================
+1. Ajouter un fichier README décrivant le dataset
+2. Vérifier que tous les fichiers JSON contiennent les métadonnées requises
+3. Utiliser un validateur BIDS online: https://bids-standard.github.io/bids-validator/
+
