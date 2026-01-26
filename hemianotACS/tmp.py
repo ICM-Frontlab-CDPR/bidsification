@@ -67,10 +67,10 @@ def extract_session_from_folder(folder_name: str) -> Optional[str]:
 
 def parse_edf_filename(filename: str) -> Tuple[Optional[str], Optional[str], Optional[str]]:
     """
-    Parse le nom de fichier .edf pour extraire task, acquisition et run.
+    Parse le nom de fichier .edf/.vhdr pour extraire task, acquisition et run.
     
     Args:
-        filename: Nom du fichier .edf
+        filename: Nom du fichier .edf ou .vhdr
     
     Returns:
         Tuple (task, acquisition, run) ou (None, None, None) si non reconnu
@@ -79,6 +79,45 @@ def parse_edf_filename(filename: str) -> Tuple[Optional[str], Optional[str], Opt
     if 'ABORTED' in filename or 'easy_converted' in filename:
         return None, None, None
     
+    # ========== BASELINE BRAINVISION (V1) ==========
+    # Resting state Eyes Closed / Eyes Open
+    if 'restingstate_EC' in filename or 'restingstate_EO' in filename:
+        task = 'rest'
+        if 'EC' in filename:
+            acq = 'EC'
+        else:
+            acq = 'EO'
+        return task, acq, None
+    
+    # Detection task
+    if 'Detection' in filename:
+        return 'detection', None, None
+    
+    # VEP fullfield
+    if 'VEP_fullfield' in filename:
+        return 'vep', 'fullfield', None
+    
+    # VEP cinétique (run 1 ou 2)
+    cinetique_match = re.search(r'cinetique(\d+)', filename, re.IGNORECASE)
+    if cinetique_match:
+        run = cinetique_match.group(1)
+        return 'vep', 'cinetique', run
+    
+    # VEP statique OD/OG (plusieurs runs possibles)
+    if 'statique' in filename:
+        # Déterminer si c'est OD ou OG
+        eye = 'OD' if 'OD' in filename else 'OG' if 'OG' in filename else None
+        if eye:
+            # Chercher un numéro de run (OD2, OG2, etc.)
+            run_match = re.search(rf'{eye}(\d+)', filename)
+            if run_match:
+                run_num = run_match.group(1)
+                run = f"{eye}{run_num}"
+            else:
+                run = f"{eye}1"
+            return 'vep', 'statique', run
+    
+    # ========== NEUROELECTRICS (V2-V4) ==========
     # Extraire le numéro de stimulation (Stim1, Stim2, Stim3)
     stim_match = re.search(r'[Ss]tim(\d+)', filename)
     run = stim_match.group(1) if stim_match else None
@@ -205,7 +244,11 @@ def create_bids_filename(subject_id: str, session: str, task: str,
     return filename
 
 
+# ============================================================================
+# FONCTIONS DE COPIE
+# ============================================================================
 
+def copy_neuroelectrics_files(edf_file: Path, subject_id: str, session: str) -> Tuple[bool, int, int]:
     """
     Copie uniquement les fichiers .easy et .info associés à un fichier .edf.
     
