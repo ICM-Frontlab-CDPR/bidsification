@@ -1,7 +1,14 @@
-- add les metadata 
+ 
+- recuprer les impedances dans .txt (deja codé mais a checker)
+
+- neuroelectrics : do not loose flag of the condition SHAM / frontale tACS / occipito-parietal tACS
+
+- partciipants global : patient n3 a corriger // fixe le 0 du sujet mam annoté dan participants.tsv
+
+
+
+
+-- later --
+- add les metadata (recup les dates de sessions depuis les nom des folders etc...)
+- les fichiers d'event
 - caracteristiques des differents scanners
-- partciipants global
-- les fichiers d'events
-- fixe le 0 du sujet mam annoté dan participants.tsv
-
-

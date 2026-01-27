@@ -65,12 +65,13 @@ def extract_session_from_folder(folder_name: str) -> Optional[str]:
     return None
 
 
-def parse_edf_filename(filename: str) -> Tuple[Optional[str], Optional[str], Optional[str]]:
+def parse_filename(filename: str) -> Tuple[Optional[str], Optional[str], Optional[str]]:
     """
-    Parse le nom de fichier .edf pour extraire task, acquisition et run.
+    Parse le nom de fichier pour extraire task, acquisition et run.
+    Fonctionne pour les fichiers BrainVision (.vhdr) et Neuroelectrics (.easy/.info).
     
     Args:
-        filename: Nom du fichier .edf
+        filename: Nom du fichier (sans extension ou avec)
     
     Returns:
         Tuple (task, acquisition, run) ou (None, None, None) si non reconnu
@@ -79,6 +80,42 @@ def parse_edf_filename(filename: str) -> Tuple[Optional[str], Optional[str], Opt
     if 'ABORTED' in filename or 'easy_converted' in filename:
         return None, None, None
     
+    # ========== BASELINE BRAINVISION (V1) ==========
+    # Resting state Eyes Closed / Eyes Open
+    if 'restingstate_EC' in filename or 'restingstate_EO' in filename:
+        task = 'rest'
+        acq = 'EC' if 'EC' in filename else 'EO'
+        return task, acq, None
+    
+    # Detection task
+    if 'Detection' in filename:
+        return 'detection', None, None
+    
+    # VEP fullfield
+    if 'VEP_fullfield' in filename:
+        return 'vep', 'fullfield', None
+    
+    # VEP cinétique (run 1 ou 2)
+    cinetique_match = re.search(r'cinetique(\d+)', filename, re.IGNORECASE)
+    if cinetique_match:
+        run = cinetique_match.group(1)
+        return 'vep', 'cinetique', run
+    
+    # VEP statique OD/OG (plusieurs runs possibles)
+    if 'statique' in filename:
+        # Déterminer si c'est OD ou OG
+        eye = 'OD' if 'OD' in filename else 'OG' if 'OG' in filename else None
+        if eye:
+            # Chercher un numéro de run (OD2, OG2, etc.)
+            run_match = re.search(rf'{eye}(\d+)', filename)
+            if run_match:
+                run_num = run_match.group(1)
+                run = f"{eye}{run_num}"
+            else:
+                run = f"{eye}1"
+            return 'vep', 'statique', run
+    
+    # ========== NEUROELECTRICS (V2-V4) ==========
     # Extraire le numéro de stimulation (Stim1, Stim2, Stim3)
     stim_match = re.search(r'[Ss]tim(\d+)', filename)
     run = stim_match.group(1) if stim_match else None
@@ -204,55 +241,6 @@ def create_bids_filename(subject_id: str, session: str, task: str,
     filename += f"_{suffix}{extension}"
     return filename
 
-
-
-    """
-    Copie uniquement les fichiers .easy et .info associés à un fichier .edf.
-    
-    Args:
-        edf_file: Chemin source du fichier .edf (utilisé pour trouver les .easy/.info)
-        subject_id: ID du sujet
-        session: Numéro de session
-    
-    Returns:
-        Tuple (success, easy_copied, info_copied)
-    """
-    try:
-        # Dossier de destination
-        dest_dir = BIDS_ROOT / f"sub-{subject_id}" / f"ses-{session}" / "eeg"
-        dest_dir.mkdir(parents=True, exist_ok=True)
-        
-        # Nom de base du fichier source et BIDS
-        base_name = edf_file.stem
-        task, acq, run = parse_edf_filename(edf_file.name)
-        
-        bids_basename = create_bids_filename(
-            subject_id, session, task, acq, run, 
-            suffix='eeg', extension=''
-        ).replace('_eeg', '')  # Retirer le suffix pour réutilisation
-        
-        easy_copied = 0
-        info_copied = 0
-        
-        # Copier le fichier .easy
-        easy_file = edf_file.parent / f"{base_name}.easy"
-        if easy_file.exists():
-            easy_dest = dest_dir / f"{bids_basename}_eeg.easy"
-            shutil.copy2(easy_file, easy_dest)
-            easy_copied = 1
-        
-        # Copier le fichier .info
-        info_file = edf_file.parent / f"{base_name}.info"
-        if info_file.exists():
-            info_dest = dest_dir / f"{bids_basename}_eeg.info"
-            shutil.copy2(info_file, info_dest)
-            info_copied = 1
-        
-        return True, easy_copied, info_copied
-        
-    except Exception as e:
-        print(f"  ❌ Erreur: {e}")
-        return False, 0, 0
 # ============================================================================
 # FONCTIONS DE COPIE
 # ============================================================================
@@ -275,7 +263,7 @@ def copy_neuroelectrics_files(ne_files: List[Path]) -> Tuple[int, int]:
             if not subject_id or not session:
                 continue
             
-            task, acq, run = parse_edf_filename(ne_file.stem)
+            task, acq, run = parse_filename(ne_file.stem)
             if task is None:
                 continue
             
@@ -316,7 +304,7 @@ def copy_brainvision_files(vhdr_files: List[Path]) -> Tuple[int, int]:
             if not subject_id or not session:
                 continue
             
-            task, acq, run = parse_edf_filename(vhdr_file.stem)
+            task, acq, run = parse_filename(vhdr_file.stem)
             if task is None:
                 continue
             
@@ -462,7 +450,7 @@ def create_participants_tsv(subject_dirs: List[Path]) -> int:
             
             participants_data.append({
                 'participant_id': f'sub-{subject_id}',
-                'group': group.lower(),
+                'group': group.lower() if group else 'unknown',
                 'initials': initials
             })
     
@@ -563,79 +551,7 @@ def main():
         print(f"⚠️  {triplets_fail} triplets échoués")
     print()
     
-    # Rapport final
-    print("=" * 80)
-    print("✅ Copie terminée!")
-    print(f"Destination: {BIDS_ROOT}")
-    print("=" * 80)
-        edf_files = edf_files[:10]
-    else:
-        response = input(f"⚠️  Copier les fichiers .easy/.info associés à ces {len(edf_files)} fichiers? (o/n): ")
-        if response.lower() not in ['o', 'oui', 'y', 'yes']:
-            print("❌ Copie annulée.")
-            sys.exit(0)
-    
-    print()
-    print("� Début de la copie des fichiers .easy et .info...")
-    print()
-    
-    # Étape 7: Copier les fichiers .easy et .info
-    files_processed = 0
-    files_failed = 0
-    files_skipped = 0
-    easy_total = 0
-    info_total = 0
-    
-    for edf_file in edf_files:
-        # Extraire les informations du fichier
-        result = create_bids_path_from_edf(edf_file)
-        if result is None:
-            files_failed += 1
-            continue
-        
-        bids_path, subject_id, session = result
-        
-        # Copier uniquement les fichiers .easy et .info
-        success, easy_copied, info_copied = copy_easy_info_files(
-            edf_file, subject_id, session
-        )
-        
-        if success:
-            task, acq, run = parse_edf_filename(edf_file.name)
-            info_str = f"sub-{subject_id}/ses-{session}/task-{task}"
-            if acq:
-                info_str += f"/acq-{acq}"
-            if run:
-                info_str += f"/run-{run}"
-            print(f"✓ {info_str}")
-            files_processed += 1
-            easy_total += easy_copied
-            info_total += info_copied
-        else:
-            print(f"❌ {edf_file.name}")
-            files_failed += 1
-    
-    # Rapport final
-    print()
-    print("=" * 80)
-    print("📊 RAPPORT FINAL")
-    print("=" * 80)
-    print(f"  Fichiers .edf analysés:  {len(edf_files)}")
-    print(f"  Fichiers traités:        {files_processed} ✓")
-    print(f"  Fichiers .easy copiés:   {easy_total} ✓")
-    print(f"  Fichiers .info copiés:   {info_total} ✓")
-    if files_skipped > 0:
-        print(f"  Fichiers ignorés:        {files_skipped} ⏭️")
-    if files_failed > 0:
-        print(f"  Fichiers échoués:        {files_failed} ❌")
-    print()
-    
-    if files_processed > 0:
-        print(f"✅ Copie terminée! Fichiers .easy/.info copiés dans: {BIDS_ROOT}")
-    else:
-        print("⚠️  Aucun fichier n'a été copié.")
-    
-    print("=" * 80)
+
 
 
 if __name__ == "__main__":
