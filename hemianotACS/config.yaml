@@ -1,2 +1,9 @@
-RAW : /Users/hippolyte.dreyfus/Desktop/hemiatotACS/HEMIANOTACS_WIP
-BIDS :
+paths:
+  raw_root: /Users/hippolyte.dreyfus/Desktop/hemianotACS/Data/sourcedata/HEMIANOTACS_WIP
+  bids_root: /Users/hippolyte.dreyfus/Desktop/hemianotACS/Data/bids
+  derivatives_root: /Users/hippolyte.dreyfus/Desktop/hemianotACS/Data/derivatives
+  eeg_path: EEG
+
+
+sub:
+ses:

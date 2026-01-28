@@ -18,10 +18,7 @@ from typing import Tuple, Optional, List, Dict
 # CONFIGURATION
 # ============================================================================
 
-RAW_ROOT = Path("/Users/hippolyte.dreyfus/Desktop/hemianotACS/Data/sourcedata/HEMIANOTACS_WIP")
-BIDS_ROOT = Path("/Users/hippolyte.dreyfus/Desktop/hemianotACS/Data/bids")
-DERIVATIVES_ROOT = Path("/Users/hippolyte.dreyfus/Desktop/hemianotACS/Data/derivatives")
-EEG_PATH = RAW_ROOT / "EEG"
+from .parameters import BIDS_ROOT, RAW_ROOT, DERIVATIVES_ROOT, EEG_PATH
 
 BIDS_ROOT.mkdir(parents=True, exist_ok=True)
 
