@@ -11,6 +11,7 @@ import pandas as pd
 import shutil
 import json
 import sys
+import yaml
 from collections import Counter
 from typing import Tuple, Optional, List, Dict
 
@@ -18,7 +19,18 @@ from typing import Tuple, Optional, List, Dict
 # CONFIGURATION
 # ============================================================================
 
-from .parameters import BIDS_ROOT, RAW_ROOT, DERIVATIVES_ROOT, EEG_PATH
+# Charger la configuration
+with open('config.yaml', 'r') as f:
+    config = yaml.safe_load(f)
+
+RAW_ROOT = Path(config['paths']['raw_root'])
+BIDS_ROOT = Path(config['paths']['bids_root'])
+DERIVATIVES_ROOT = Path(config['paths']['derivatives_root'])
+EEG_PATH = RAW_ROOT / config['paths']['eeg_path']
+
+# Listes des sujets et sessions à traiter
+SUBJECTS_TO_PROCESS = config.get('subjects', [])
+SESSIONS_TO_PROCESS = config.get('sessions', [])
 
 BIDS_ROOT.mkdir(parents=True, exist_ok=True)
 
@@ -158,7 +170,27 @@ def parse_filename(filename: str) -> Tuple[Optional[str], Optional[str], Optiona
 
 def collect_subject_directories() -> List[Path]:
     """Collecte tous les dossiers de participants valides."""
-    return sorted([d for d in EEG_PATH.iterdir() if d.is_dir()])
+    all_dirs = sorted([d for d in EEG_PATH.iterdir() if d.is_dir()])
+    
+    # Filtrer par sujets si spécifié
+    if SUBJECTS_TO_PROCESS:
+        filtered_dirs = []
+        for d in all_dirs:
+            subject_id, _, _ = extract_subject_info(d.name)
+            if subject_id and subject_id in SUBJECTS_TO_PROCESS:
+                filtered_dirs.append(d)
+        return filtered_dirs
+    
+    return all_dirs
+
+
+def should_process_session(session_folder: str) -> bool:
+    """Vérifie si une session doit être traitée selon la config."""
+    if not SESSIONS_TO_PROCESS:
+        return True
+    
+    session_num = extract_session_from_folder(session_folder)
+    return session_num in SESSIONS_TO_PROCESS
 
 
 def collect_neuroelectrics_files(subject_dirs: List[Path]) -> List[Path]:
@@ -171,8 +203,15 @@ def collect_neuroelectrics_files(subject_dirs: List[Path]) -> List[Path]:
         
         eeg_dir = subj_dir / "2_EEG"
         if eeg_dir.exists():
-            files.extend(list(eeg_dir.rglob("*.easy")))
-            files.extend(list(eeg_dir.rglob("*.info")))
+            # Filtrer par sessions si configuré
+            for session_dir in eeg_dir.iterdir():
+                if not session_dir.is_dir():
+                    continue
+                if not should_process_session(session_dir.name):
+                    continue
+                    
+                files.extend(list(session_dir.rglob("*.easy")))
+                files.extend(list(session_dir.rglob("*.info")))
     
     return [f for f in files if 'ABORTED' not in f.name]
 
@@ -187,7 +226,14 @@ def collect_brainvision_files(subject_dirs: List[Path]) -> List[Path]:
         
         eeg_dir = subj_dir / "2_EEG"
         if eeg_dir.exists():
-            files.extend(list(eeg_dir.rglob("*.vhdr")))
+            # Filtrer par sessions si configuré
+            for session_dir in eeg_dir.iterdir():
+                if not session_dir.is_dir():
+                    continue
+                if not should_process_session(session_dir.name):
+                    continue
+                    
+                files.extend(list(session_dir.rglob("*.vhdr")))
     
     return [f for f in files if 'ABORTED' not in f.name]
 
@@ -284,7 +330,7 @@ def copy_neuroelectrics_files(ne_files: List[Path]) -> Tuple[int, int]:
 
 
 def copy_brainvision_files(vhdr_files: List[Path]) -> Tuple[int, int]:
-    """Copie les triplets BrainVision (.vhdr/.vmrk/.eeg) vers BIDS."""
+    """Bidsifie les fichiers BrainVision (.vhdr/.vmrk/.eeg) en utilisant MNE-BIDS."""
     triplets_copied = 0
     triplets_failed = 0
     
@@ -305,24 +351,25 @@ def copy_brainvision_files(vhdr_files: List[Path]) -> Tuple[int, int]:
             if task is None:
                 continue
             
-            dest_dir = BIDS_ROOT / f"sub-{subject_id}" / f"ses-{session}" / "eeg"
-            dest_dir.mkdir(parents=True, exist_ok=True)
+            # Créer le BIDSPath
+            bids_path = BIDSPath(
+                subject=subject_id,
+                session=session,
+                task=task,
+                acquisition=acq,
+                run=run or '1',  # Ajouter run-1 par défaut si absent
+                datatype='eeg',
+                root=BIDS_ROOT
+            )
             
-            base_name = vhdr_file.stem
-            extensions = ['.vhdr', '.vmrk', '.eeg']
-            all_exist = all((vhdr_file.parent / f"{base_name}{ext}").exists() for ext in extensions)
+            # Lire et écrire avec MNE-BIDS
+            raw = mne.io.read_raw_brainvision(vhdr_file, preload=False, verbose=False)
+            write_raw_bids(raw, bids_path, format='BrainVision', overwrite=True, verbose=False)
             
-            if all_exist:
-                for ext in extensions:
-                    src = vhdr_file.parent / f"{base_name}{ext}"
-                    bids_name = create_bids_filename(subject_id, session, task, acq, run, 'eeg', ext)
-                    dest = dest_dir / bids_name
-                    shutil.copy2(src, dest)
-                triplets_copied += 1
-            else:
-                triplets_failed += 1
+            triplets_copied += 1
                 
-        except (ValueError, IndexError):
+        except Exception as e:
+            print(f"  ❌ {vhdr_file.name}: {e}")
             triplets_failed += 1
     
     return triplets_copied, triplets_failed
@@ -480,6 +527,17 @@ def main():
     print("=" * 80)
     print("BIDSIFICATION HEMIANOTACS - Copie fichiers EEG")
     print("=" * 80)
+    
+    # Afficher la configuration
+    if SUBJECTS_TO_PROCESS:
+        print(f"Sujets: {', '.join(SUBJECTS_TO_PROCESS)}")
+    else:
+        print("Sujets: tous")
+    
+    if SESSIONS_TO_PROCESS:
+        print(f"Sessions: {', '.join(SESSIONS_TO_PROCESS)}")
+    else:
+        print("Sessions: toutes")
     print()
     
     # Étape 1: Collecter les participants
@@ -536,13 +594,39 @@ def main():
     vhdr_files = collect_brainvision_files(subject_dirs)
     print(f"📁 {len(vhdr_files)} fichiers .vhdr trouvés")
     
-    response = input(f"Copier triplets? (o/n): ")
-    if response.lower() not in ['o', 'oui', 'y', 'yes']:
-        print("❌ Annulé")
+    # Afficher les fichiers trouvés et permettre la sélection
+    if vhdr_files:
+        print("\nFichiers trouvés:")
+        for i, vhdr_file in enumerate(vhdr_files, 1):
+            print(f"  {i}. {vhdr_file.relative_to(RAW_ROOT)}")
+        print()
+        
+        selection = input("Sélectionner les fichiers (ex: 1,3-5,7 ou 'all' pour tous, 'n' pour annuler): ").strip()
+        
+        if selection.lower() == 'n':
+            print("❌ Annulé")
+            sys.exit(0)
+        elif selection.lower() == 'all':
+            selected_files = vhdr_files
+        else:
+            # Parser la sélection
+            selected_indices = set()
+            for part in selection.split(','):
+                part = part.strip()
+                if '-' in part:
+                    start, end = part.split('-')
+                    selected_indices.update(range(int(start), int(end) + 1))
+                elif part.isdigit():
+                    selected_indices.add(int(part))
+            
+            selected_files = [vhdr_files[i-1] for i in sorted(selected_indices) if 1 <= i <= len(vhdr_files)]
+            
+        print(f"\n📂 Bidsification de {len(selected_files)} fichier(s)...")
+    else:
+        print("❌ Aucun fichier trouvé")
         sys.exit(0)
     
-    print("📂 Copie BrainVision...")
-    triplets_ok, triplets_fail = copy_brainvision_files(vhdr_files)
+    triplets_ok, triplets_fail = copy_brainvision_files(selected_files)
     print(f"✓ {triplets_ok} triplets copiés")
     if triplets_fail > 0:
         print(f"⚠️  {triplets_fail} triplets échoués")

@@ -4,6 +4,6 @@ paths:
   derivatives_root: /Users/hippolyte.dreyfus/Desktop/hemianotACS/Data/derivatives
   eeg_path: EEG
 
-
-sub:
-ses:
+# Listes des sujets et sessions à traiter (vide = tous)
+subjects: ['0002']
+sessions: ['01']
