@@ -3,6 +3,8 @@ paths:
   bids_root: /Users/hippolyte.dreyfus/Desktop/hemianotACS/Data/bids
   derivatives_root: /Users/hippolyte.dreyfus/Desktop/hemianotACS/Data/derivatives
   eeg_path: EEG
+  mri_path: IRM
+  mri_session_id: '01' 
 
 # Listes des sujets et sessions à traiter (vide = tous)
 subjects: ['0002']
