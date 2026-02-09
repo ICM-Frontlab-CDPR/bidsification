@@ -11,12 +11,49 @@ from pathlib import Path
 import yaml
 import json
 import re
+import logging
+from datetime import datetime
 from typing import Dict, List, Tuple, Optional
 
 
 # ============================================================================
 # CHARGEMENT DE LA CONFIGURATION
 # ============================================================================
+
+def setup_logging(script_name: str = '3-mri-add') -> logging.Logger:
+    """Configure le logging pour écrire dans un fichier de log."""
+    # Créer le répertoire de logs
+    log_dir = Path('logs')
+    log_dir.mkdir(exist_ok=True)
+    
+    # Nom du fichier de log avec timestamp
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    log_file = log_dir / f"{script_name}_{timestamp}.log"
+    
+    # Configuration du logger
+    logger = logging.getLogger(script_name)
+    logger.setLevel(logging.INFO)
+    
+    # Handler pour le fichier
+    file_handler = logging.FileHandler(log_file, encoding='utf-8')
+    file_handler.setLevel(logging.INFO)
+    
+    # Handler pour la console
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.INFO)
+    
+    # Format
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    file_handler.setFormatter(formatter)
+    console_handler.setFormatter(formatter)
+    
+    # Ajouter les handlers
+    logger.addHandler(file_handler)
+    logger.addHandler(console_handler)
+    
+    logger.info(f"Fichier de log: {log_file}")
+    return logger
+
 
 def load_config(config_path='config.yaml') -> Dict:
     """Charge la configuration depuis le fichier YAML."""
@@ -29,18 +66,19 @@ def load_config(config_path='config.yaml') -> Dict:
 # FONCTIONS D'ANALYSE DES FICHIERS IRM
 # ============================================================================
 
-def list_mri_files(source_dir: Path) -> Dict[str, List[Path]]:
+def list_mri_files(source_dir: Path, logger: logging.Logger) -> Dict[str, List[Path]]:
     """
     Liste et catégorise tous les fichiers IRM présents dans le dossier source.
     
     Args:
         source_dir: Chemin vers le dossier source contenant les IRM
+        logger: Logger pour les messages
         
     Returns:
         Dictionnaire organisé par type de fichier (T1w, FLAIR, func, dwi, etc.)
     """
     if not source_dir.exists():
-        print(f"❌ Le dossier {source_dir} n'existe pas !")
+        logger.error(f"Le dossier {source_dir} n'existe pas !")
         return {}
     
     # Organisation des fichiers par type
@@ -82,24 +120,25 @@ def get_file_size_mb(file_path: Path) -> float:
     return file_path.stat().st_size / (1024 * 1024)
 
 
-def display_files_summary(files_by_type: Dict[str, List[Path]]) -> None:
+def display_files_summary(files_by_type: Dict[str, List[Path]], logger: logging.Logger) -> None:
     """
     Affiche un résumé des fichiers trouvés.
     
     Args:
         files_by_type: Dictionnaire des fichiers organisés par type
+        logger: Logger pour les messages
     """
-    print("\n" + "="*80)
-    print("📋 RÉSUMÉ DES FICHIERS IRM TROUVÉS")
-    print("="*80 + "\n")
+    logger.info("="*80)
+    logger.info("RÉSUMÉ DES FICHIERS IRM TROUVÉS")
+    logger.info("="*80)
     
     total_files = 0
     total_size = 0
     
     for category, files in files_by_type.items():
         if files:
-            print(f"\n🔹 {category.upper()} ({len(files)} fichiers)")
-            print("-" * 80)
+            logger.info(f"\n{category.upper()} ({len(files)} fichiers)")
+            logger.info("-" * 80)
             
             # Organiser les fichiers par paire (nii.gz + json)
             nii_files = sorted([f for f in files if f.suffix == '.gz'])
@@ -113,26 +152,26 @@ def display_files_summary(files_by_type: Dict[str, List[Path]]) -> None:
                 total_size += size
                 total_files += 1
                 
-                print(f"  📄 {nii_file.name:<50} ({size:>6.1f} MB)")
+                logger.info(f"  {nii_file.name:<50} ({size:>6.1f} MB)")
                 
                 if json_file.exists():
-                    print(f"     └─ {json_file.name}")
+                    logger.info(f"     └─ {json_file.name}")
                     total_files += 1
                     total_size += get_file_size_mb(json_file)
                 
                 if bval_file.exists():
-                    print(f"     └─ {bval_file.name}")
+                    logger.info(f"     └─ {bval_file.name}")
                     total_files += 1
                     total_size += get_file_size_mb(bval_file)
                 
                 if bvec_file.exists():
-                    print(f"     └─ {bvec_file.name}")
+                    logger.info(f"     └─ {bvec_file.name}")
                     total_files += 1
                     total_size += get_file_size_mb(bvec_file)
     
-    print("\n" + "="*80)
-    print(f"📊 TOTAL: {total_files} fichiers - {total_size:.1f} MB")
-    print("="*80 + "\n")
+    logger.info("="*80)
+    logger.info(f"TOTAL: {total_files} fichiers - {total_size:.1f} MB")
+    logger.info("="*80)
 
 
 # ============================================================================
@@ -263,6 +302,7 @@ def copy_files_to_bids(files_by_type: Dict[str, List[Path]],
                       subject_id: str,
                       session_id: str,
                       bids_root: Path,
+                      logger: logging.Logger,
                       dry_run: bool = True) -> None:
     """
     Copie les fichiers IRM vers la structure BIDS.
@@ -272,14 +312,15 @@ def copy_files_to_bids(files_by_type: Dict[str, List[Path]],
         subject_id: ID du sujet
         session_id: ID de la session
         bids_root: Racine du dossier BIDS
+        logger: Logger pour les messages
         dry_run: Si True, affiche seulement ce qui serait fait sans copier
     """
-    print("\n" + "="*80)
+    logger.info("="*80)
     if dry_run:
-        print("🔍 APERÇU DES OPÉRATIONS (DRY RUN)")
+        logger.info("APERÇU DES OPÉRATIONS (DRY RUN)")
     else:
-        print("📁 COPIE DES FICHIERS VERS BIDS")
-    print("="*80 + "\n")
+        logger.info("COPIE DES FICHIERS VERS BIDS")
+    logger.info("="*80)
     
     operations = []
     
@@ -307,20 +348,20 @@ def copy_files_to_bids(files_by_type: Dict[str, List[Path]],
     
     # Afficher les opérations
     for source, dest in operations:
-        print(f"  {source.name}")
-        print(f"    → {dest.relative_to(bids_root)}\n")
+        logger.info(f"  {source.name}")
+        logger.info(f"    → {dest.relative_to(bids_root)}")
     
-    print(f"\n📊 TOTAL: {len(operations)} fichiers à copier\n")
+    logger.info(f"\nTOTAL: {len(operations)} fichiers à copier")
     
     if not dry_run:
         # Demander confirmation
         response = input("⚠️  Confirmer la copie des fichiers ? (o/n): ")
         if response.lower() != 'o':
-            print("❌ Opération annulée.")
+            logger.warning("Opération annulée.")
             return
         
         # Copier les fichiers
-        print("\n🚀 Copie en cours...\n")
+        logger.info("Copie en cours...")
         copied_count = 0
         
         for source, dest in operations:
@@ -330,13 +371,13 @@ def copy_files_to_bids(files_by_type: Dict[str, List[Path]],
                 
                 # Copier le fichier
                 shutil.copy2(source, dest)
-                print(f"  ✅ {dest.name}")
+                logger.info(f"  ✅ {dest.name}")
                 copied_count += 1
                 
             except Exception as e:
-                print(f"  ❌ Erreur lors de la copie de {source.name}: {e}")
+                logger.error(f"  Erreur lors de la copie de {source.name}: {e}")
         
-        print(f"\n✨ Copie terminée ! {copied_count}/{len(operations)} fichiers copiés.\n")
+        logger.info(f"Copie terminée ! {copied_count}/{len(operations)} fichiers copiés.")
 
 
 # ============================================================================
@@ -345,9 +386,12 @@ def copy_files_to_bids(files_by_type: Dict[str, List[Path]],
 
 def main():
     """Fonction principale du script."""
-    print("\n" + "="*80)
-    print("🧠 SCRIPT D'AJOUT DES FICHIERS IRM DANS BIDS")
-    print("="*80 + "\n")
+    # Setup logging
+    logger = setup_logging('3-mri-add')
+    
+    logger.info("="*80)
+    logger.info("SCRIPT D'AJOUT DES FICHIERS IRM DANS BIDS")
+    logger.info("="*80)
     
     # Charger la configuration
     config = load_config()
@@ -358,12 +402,11 @@ def main():
     # Lister les participants disponibles
     participant_folders = sorted([d for d in mri_path.iterdir() if d.is_dir()])
     
-    print(f"📂 Dossier IRM: {mri_path}")
-    print(f"📂 Dossier BIDS: {bids_root}\n")
-    print(f"Participants trouvés: {len(participant_folders)}")
+    logger.info(f"Dossier IRM: {mri_path}")
+    logger.info(f"Dossier BIDS: {bids_root}")
+    logger.info(f"Participants trouvés: {len(participant_folders)}")
     for folder in participant_folders:
-        print(f"  - {folder.name}")
-    print()
+        logger.info(f"  - {folder.name}")
     
     # Demander quel participant traiter
     choice = input("Traiter tous les participants ? (o/n): ").strip().lower()
@@ -378,36 +421,36 @@ def main():
     
     # Traiter chaque participant
     for source_dir in folders_to_process:
-        print("\n" + "="*80)
-        print(f"📂 Traitement de: {source_dir.name}")
-        print("="*80 + "\n")
+        logger.info("="*80)
+        logger.info(f"Traitement de: {source_dir.name}")
+        logger.info("="*80)
         
         # Extraire l'ID du sujet depuis le nom du dossier
         subject_id, subject_code = parse_subject_from_path(source_dir)
         if not subject_id:
-            print("❌ Impossible d'extraire l'ID du sujet depuis le chemin.")
+            logger.error("Impossible d'extraire l'ID du sujet depuis le chemin.")
             continue
         
         session_id = config['paths']['mri_session_id']
-        print(f"👤 Sujet détecté: sub-{subject_id} (code: {subject_code})")
-        print(f"📅 Session: ses-{session_id}\n")
+        logger.info(f"Sujet détecté: sub-{subject_id} (code: {subject_code})")
+        logger.info(f"Session: ses-{session_id}")
         
         # 1. Lister tous les fichiers présents
-        print("🔍 Étape 1: Analyse du dossier source...")
-        files_by_type = list_mri_files(source_dir)
+        logger.info("Étape 1: Analyse du dossier source...")
+        files_by_type = list_mri_files(source_dir, logger)
         
         if not any(files_by_type.values()):
-            print("❌ Aucun fichier IRM trouvé dans le dossier source.")
+            logger.error("Aucun fichier IRM trouvé dans le dossier source.")
             continue
         
-        display_files_summary(files_by_type)
+        display_files_summary(files_by_type, logger)
         
         # 2. Demander confirmation et copier
-        print("🔍 Étape 2: Prévisualisation des opérations...")
-        copy_files_to_bids(files_by_type, subject_id, session_id, bids_root, dry_run=True)
+        logger.info("Étape 2: Prévisualisation des opérations...")
+        copy_files_to_bids(files_by_type, subject_id, session_id, bids_root, logger, dry_run=True)
         
         # Copie réelle
-        copy_files_to_bids(files_by_type, subject_id, session_id, bids_root, dry_run=False)
+        copy_files_to_bids(files_by_type, subject_id, session_id, bids_root, logger, dry_run=False)
 
 
 if __name__ == '__main__':
