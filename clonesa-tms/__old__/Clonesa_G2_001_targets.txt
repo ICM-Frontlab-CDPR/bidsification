@@ -1,0 +1,6 @@
+# Version: 1.0 (Extracted from Brainsight)
+# Coordinate system: MNI
+# Units: millimetres, degrees
+# Encoding: UTF-8
+# Notes: Extracted from .bsproj file
+# Target Name	Loc. X	Loc. Y	Loc. Z	
