@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Script to extract TMS coil position information from Brainsight .bsproj files.
+Extract TMS coil position information from Brainsight .bsproj files.
 The .bsproj file is a SQLite database with serialized Apple plist binary data.
 """
 
@@ -203,10 +203,12 @@ class BrainsightExtractor:
         try:
             query = """
             SELECT 
+                ZINDEX,
                 ZNAME,
                 ZPOSITION,
+                ZTARGETPOSITION,
+                ZTARGETNAME,
                 ZUUID,
-                ZINDEX,
                 ZCREATIONDATE,
                 ZSTIMULATORPOWERA,
                 ZSTIMULATORPOWERB
@@ -219,15 +221,31 @@ class BrainsightExtractor:
             rows = self.cursor.fetchall()
             
             for row in rows:
-                name, position_blob, uuid, index, creation_date, power_a, power_b = row
+                zindex, name, zposition, ztargetposition, target_name, uuid, creation_date, power_a, power_b = row
                 
-                position = self._parse_position_data(position_blob)
+                position = self._parse_position_data(zposition)
+                target_position = self._parse_position_data(ztargetposition) if ztargetposition else None
+                
+                # Extract rotation matrix from position blob
+                rotation = None
+                if zposition:
+                    try:
+                        plist_data = plistlib.loads(zposition)
+                        transform_data = plist_data['$objects'][2]
+                        values = struct.unpack('<16d', transform_data)
+                        # Extract 3x3 rotation from 4x4 matrix
+                        rotation = [[values[i*4+j] for j in range(3)] for i in range(3)]
+                    except:
+                        pass
                 
                 sample_info = {
+                    'index': zindex,
                     'name': name,
                     'uuid': uuid,
-                    'index': index,
                     'position': position,
+                    'target_position': target_position,
+                    'target_name': target_name,
+                    'rotation': rotation,
                     'creation_date': creation_date,
                     'power_a': power_a,
                     'power_b': power_b,
@@ -241,78 +259,73 @@ class BrainsightExtractor:
         
         return samples
     
-    def export_targets_txt(self, output_path: str) -> None:
+    def export_samples_txt(self, output_path: str) -> None:
         """
-        Export targets in the same format as Brainsight's "Exported Targets.txt".
+        Export samples (actual coil positions) in Brainsight format.
         
         Args:
-            output_path: Path to save the exported targets file
+            output_path: Path to save the exported samples file
         """
-        targets = self.extract_targets()
         samples = self.extract_samples()
         
-        # Use samples if no targets found
-        if not targets and samples:
-            targets = samples
-        
-        if not targets:
-            print("Warning: No targets found to export", file=sys.stderr)
+        if not samples:
+            print("Warning: No samples found to export", file=sys.stderr)
             return
         
         with open(output_path, 'w') as f:
-            # Write header
-            f.write("# Version: 1.0 (Extracted from Brainsight)\n")
-            f.write("# Coordinate system: MNI\n")
+            # Write header (similar to Brainsight format)
+            f.write("# Version: 1.0 (Extracted from Brainsight .bsproj)\n")
+            f.write("# Coordinate system: MNI (or native depending on project)\n")
             f.write("# Units: millimetres, degrees\n")
             f.write("# Encoding: UTF-8\n")
-            f.write("# Notes: Extracted from .bsproj file\n")
-            f.write("# Target Name\tLoc. X\tLoc. Y\tLoc. Z\t")
+            f.write("# Notes: Extracted from .bsproj ZSAMPLE table\n")
+            f.write("# Sample Index\tSample Name\tTarget Name\tLoc. X\tLoc. Y\tLoc. Z\t")
             
-            # Add matrix headers if transforms are available
-            has_transforms = any(t.get('transform') is not None for t in targets)
-            if has_transforms:
-                for i in range(3):
-                    for j in range(3):
-                        f.write(f"m{i}n{j}")
-                        if not (i == 2 and j == 2):
-                            f.write("\t")
-            f.write("\n")
+            # Add matrix headers
+            for i in range(3):
+                for j in range(3):
+                    f.write(f"m{i}n{j}")
+                    if not (i == 2 and j == 2):
+                        f.write("\t")
+            f.write("\tPower_A\tPower_B\n")
             
-            # Write targets
-            for target in targets:
-                if target['position'] is None:
+            # Write samples
+            for sample in samples:
+                if sample['position'] is None:
                     continue
                 
-                f.write(f"{target['name']}\t")
+                f.write(f"{sample['index']}\t{sample['name']}\t{sample['target_name'] or 'N/A'}\t")
                 
                 # Write position
-                pos = target['position']
+                pos = sample['position']
                 for i, coord in enumerate(pos):
                     f.write(f"{coord:.9f}")
-                    if not (i == 2 and not has_transforms):
+                    if i < 2:
                         f.write("\t")
                 
-                # Write transform matrix if available
-                if has_transforms:
-                    if target['transform'] is not None:
-                        matrix = target['transform']
-                        for i in range(3):
-                            for j in range(3):
-                                f.write(f"{matrix[i][j]:.9f}")
-                                if not (i == 2 and j == 2):
-                                    f.write("\t")
-                    else:
-                        # Identity matrix if no transform
-                        for i in range(3):
-                            for j in range(3):
-                                val = 1.0 if i == j else 0.0
-                                f.write(f"{val:.9f}")
-                                if not (i == 2 and j == 2):
-                                    f.write("\t")
+                # Write rotation matrix
+                if sample['rotation'] is not None:
+                    f.write("\t")
+                    for i in range(3):
+                        for j in range(3):
+                            f.write(f"{sample['rotation'][i][j]:.9f}")
+                            if not (i == 2 and j == 2):
+                                f.write("\t")
+                else:
+                    # Identity matrix if no rotation
+                    f.write("\t")
+                    for i in range(3):
+                        for j in range(3):
+                            val = 1.0 if i == j else 0.0
+                            f.write(f"{val:.9f}")
+                            if not (i == 2 and j == 2):
+                                f.write("\t")
                 
+                # Write power values
+                f.write(f"\t{sample['power_a'] or 'N/A'}\t{sample['power_b'] or 'N/A'}")
                 f.write("\n")
         
-        print(f"✓ Exported targets to: {output_path}")
+        print(f"✓ Exported {len(samples)} samples to: {output_path}")
     
     def export_csv(self, output_path: str) -> None:
         """
@@ -391,17 +404,16 @@ def main():
     )
     parser.add_argument('bsproj', help='Path to the .bsproj file')
     parser.add_argument(
-        '--export-txt',
-        help='Export targets in Brainsight format (.txt). If not specified, uses default path.'
+        '--export-samples',
+        help='Export samples (actual coil positions) in Brainsight format'
+    )
+    parser.add_argument(
+        '--export-targets',
+        help='Export targets (planned positions) in Brainsight format'
     )
     parser.add_argument(
         '--export-csv',
-        help='Export targets as CSV. If not specified, uses default path.'
-    )
-    parser.add_argument(
-        '--summary',
-        action='store_true',
-        help='Print summary of extracted data'
+        help='Export as CSV'
     )
     parser.add_argument(
         '--output-dir',
@@ -429,12 +441,16 @@ def main():
             
             bsproj_name = Path(args.bsproj).stem
             
-            # Export to default paths if not specified
-            txt_path = args.export_txt or str(output_dir / f"{bsproj_name}_targets.txt")
-            csv_path = args.export_csv or str(output_dir / f"{bsproj_name}_targets.csv")
+            # Export samples (actual coil positions) by default
+            samples_path = args.export_samples or str(output_dir / f"{bsproj_name}_samples.txt")
+            extractor.export_samples_txt(samples_path)
             
-            extractor.export_targets_txt(txt_path)
-            extractor.export_csv(csv_path)
+            # Also export targets if requested or by default
+            targets_path = args.export_targets or str(output_dir / f"{bsproj_name}_targets.txt")
+            extractor.export_targets_txt(targets_path)
+            
+            if args.export_csv:
+                extractor.export_csv(args.export_csv)
         
         extractor.close()
     

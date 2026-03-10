@@ -1,0 +1,6 @@
+# Version: 1.0 (Extracted from Brainsight .bsproj)
+# Coordinate system: MNI (or native depending on project)
+# Units: millimetres, degrees
+# Encoding: UTF-8
+# Notes: Extracted from .bsproj ZSAMPLE table
+# Sample Index	Sample Name	Target Name	Loc. X	Loc. Y	Loc. Z	m0n0	m0n1	m0n2	m1n0	m1n1	m1n2	m2n0	m2n1	m2n2	Power_A	Power_B

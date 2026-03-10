@@ -1,0 +1,2 @@
+/Volumes/levy/raw/valerocabre/clonesa/Data/CLONESA_MRI/CLONESA_FOLDER_organized/CLONESA_TMS/MRIs/CLONESA_002_0001/wrv_CRETMS_1_005_S3_T1w_mp2rage_T1_Images_dlPFC.nii
+can you tell me if there are some values in this image 
