@@ -1,13 +1,22 @@
-Petite pipeline de bidsfication semie-automatique basée sur une interaction cadrée user-LLM agent.
+# LLM-BIDS (Exploratory)
 
-Attention a checker que le LLM n'a pas le droit de lire les donnees pour ne pas les diffuser aux serveurx tiers
+Small semi-automatic BIDSification pipeline based on a structured user–LLM agent interaction.
 
-SOTA a checker ! + retour de tous ceux qui acauiert de la donnees ICM + NS + autres ?
+## Important privacy note
 
-1. Analyse des donnees RAW
-2. Definition des outils et de l'environnement **-- validation utilisateur**
-3. Construction de la pipeline en s'appuyant sur une strcture deja existante :
-   1. Reformation du tree-BIDS (correct path and name)
-   2. check de l'utilisation de tous les files (ajout des fichiers) + le nombre de sujets/sessions etc **--validation utilisateur**
-   3. bids-validation et recueil des erreurs au sein des fichiers  ( pypi.org/project/bids-validator/ ...setup docker pour validation et log correct des erreurs ... ou passer par du online ?)
-   4. retravaille sur des scripts de modifications internes au fichier avec l'utilisateur
+Make sure the LLM is **not allowed to access raw data content** if there is any risk of sending sensitive information to third-party servers.
+
+## Current idea
+
+1. Analyze raw input data structure.
+2. Define tools and environment (**user validation required**).
+3. Build the pipeline by reusing an existing project structure:
+   1. Rebuild the BIDS tree (correct paths and filenames).
+   2. Verify all files are accounted for, including subject/session counts (**user validation required**).
+   3. Run BIDS validation and collect errors (for example with https://pypi.org/project/bids-validator/, Docker-based validation/logging, or online validation).
+   4. Iterate on file-level transformation scripts with the user.
+
+## Notes
+
+- This is an exploratory approach, not a fully autonomous conversion system.
+- The scripted and standardized pipeline remains the reference implementation.

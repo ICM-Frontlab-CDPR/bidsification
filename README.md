@@ -1,12 +1,16 @@
+# BIDSification Script Examples
 
+## Goal
 
-Obejctif : 
+This repository contains **example scripts** to convert and organize neuroscience datasets into the **BIDS format**.
 
-Avoir un dataset au format BIDS tel que decrit par : https://bids.neuroimaging.io/index.html 
+It also includes a brief description of an LLM-based approach in [LLM-BIDS](LLM-BIDS).
 
-Ceci per;mettqnt detre publiees...
+Reference: https://bids.neuroimaging.io/index.html
 
-Voici un apercu de la structure de donnees
+The objective is to produce a valid, shareable dataset structure that is easier to analyze, reproduce, and publish.
+
+### Example BIDS dataset structure
 
 dataset/
 ├── dataset_description.json
@@ -21,26 +25,28 @@ dataset/
 │           ├── sub-01_ses-01_task-rest_run-01_events.tsv
 │           └── sub-01_ses-01_task-rest_run-01_electrodes.tsv
 
+## Validation
 
+Always validate your output with a BIDS validator.
 
-Checker gr6ace au BIDS validator (plusieurs outils sont utilisables selon votre maniere de trqvailler) :
+- Online validator: https://bids-standard.github.io/bids-validator/
+- CLI validator: https://www.npmjs.com/package/bids-validator
 
-- online :
-- CLI :
+## Typical workflow (standard scripted process)
 
+1. Reorganize raw data by participant/session.
+2. Convert modality-specific files (EEG/MEG/MRI/behavior) to BIDS-compliant names and sidecars.
+3. Generate/update metadata files (`participants.tsv`, `dataset_description.json`, JSON sidecars, events/channels files).
+4. Run the BIDS validator and fix reported issues.
 
-**Process general - Main steps**
+## Useful tools
 
-1/ chqnger lq structure par participant
+- `mne-bids`
+- `pybids`
+- BIDS Validator (online or CLI)
 
-2/ 
+## Notes
 
-3/
-
-Bids-validator
-
-
-
-**Les outils a utiliser:**
-
-- mne-bids !
+- This repository is intended as a **collection of practical examples**, not a single packaged pipeline.
+- Scripts may differ between projects (EEG, MEG, MRI, behavior) and should be adapted to your dataset.
+- The LLM-based approach is exploratory and should be treated as assistive, not fully autonomous.
