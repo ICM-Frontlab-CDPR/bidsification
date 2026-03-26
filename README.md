@@ -45,6 +45,28 @@ Always validate your output with a BIDS validator.
 - `pybids`
 - BIDS Validator (online or CLI)
 
+## Minimal pre-commit setup
+
+This repository includes a minimal hook configuration in [.pre-commit-config.yaml](.pre-commit-config.yaml).
+
+Quick setup:
+
+1. Install pre-commit.
+2. Run `pre-commit install` in the repository.
+3. (Optional) Run `pre-commit run --all-files` once.
+
+Current hooks:
+
+- trailing whitespace removal
+- end-of-file fixer
+- YAML validation
+- large file check
+
+## License
+
+This repository is released under a **non-commercial** license:
+[LICENSE](LICENSE) (CC BY-NC 4.0).
+
 ## Notes
 
 - This repository is intended as a **collection of practical examples**, not a single packaged pipeline.
