@@ -11,7 +11,7 @@ import re
 import pandas as pd
 from pathlib import Path
 
-BIDS_ROOT = Path("/Volumes/levy/raw/valerocabre/stimSD/Data/derivatives/bids/")
+BIDS_ROOT = Path("/Volumes/levy/raw/valerocabre/stimSD/Data/derivatives/bidsV4/")
 OUT_DIR   = Path("/Volumes/levy/raw/valerocabre/stimSD/Data/derivatives/beh-preprocess/")
 
 TASKS = ["asverbale", "asvisuelle"]
@@ -50,6 +50,6 @@ for task, frames in by_task.items():
         continue
 
     combined = pd.concat(frames, ignore_index=True)
-    out_file = OUT_DIR / f"task-{task}_beh.tsv"
+    out_file = OUT_DIR / f"task-{task}_beh_eCRF.tsv"
     combined.to_csv(out_file, sep="\t", index=False)
     print(f"✓ {out_file.name}  ({len(combined)} lignes, {combined['participant_id'].nunique()} sujets)")
