@@ -1,0 +1,30 @@
+
+Voila l'entrypoint du dataset:
+'/Volumes/levy/raw/valerocabre/stimSD/Data/sourcedata/STIM-SD/1_NEW_DATA_08_06_2023/1_DATAS/1_RAW DATAS/1_PATIENTS/001-0010-LM/001-009-LM.xlsx'
+
+Voila l'endroit ou commencer la structure BIDS:
+'/Volumes/levy/raw/valerocabre/stimSD/Data/derivatives/bids/'
+
+
+Voila les xlsx :
+'/Volumes/levy/raw/valerocabre/stimSD/Data/sourcedata/STIM-SD/1_NEW_DATA_08_06_2023/1_DATAS/1_RAW DATAS/1_PATIENTS/001-0010-LM/001-009-LM.xlsx'
+
+
+Voila les pages à cibler :
+- AS verbale
+- AS visuelle
+
+Voila les colonnes pour chacun des deux :
+
+PAT001-001-CM	Version	Session	Trial	Target	Condition Target	ImageDisplay2.ACC	ImageDisplay2.RT		PAT001-001-CM	Version	Session	Trial	Target	Condition Target	ImageDisplay2.ACC	ImageDisplay2.RT		PAT001-001-CM	Version	Session	Trial	Target	Condition Target	ImageDisplay2.ACC	ImageDisplay2.RT		PAT001-001-CM	Version	Session	Trial	Target	Condition Target	ImageDisplay2.ACC	ImageDisplay2.RT
+et PAT001-001-CM	Version	Session	Trial	Target	Condition Target	ImageDisplay2.ACC	ImageDisplay2.RT		PAT001-001-CM	Version	Session	Trial	Target	Condition Target	ImageDisplay2.ACC	ImageDisplay2.RT		PAT001-001-CM	Version	Session	Trial	Target	Condition Target	ImageDisplay2.ACC	ImageDisplay2.RT		PAT001-001-CM	Version	Session	Trial	target	Condition Target	ImageDisplay2.ACC	ImageDisplay2.RT
+
+
+
+
+Rajoute un check pour checker que tu arrives a bien selectionner les blocks de colonnes qui permettent de recreer les sessions.
+
+Aller letsgo go pour formater ca en bids beh/
+et fais un fichier AS verbale qui fait tout ca 
+et pareill pour AS visuel
+tu peux ecrire le script dans : /Users/hippolyte.dreyfus/Documents/stimSD-analysis/behavior/bids-beh.py
