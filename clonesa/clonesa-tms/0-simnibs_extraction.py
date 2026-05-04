@@ -10,6 +10,7 @@ from simnibs import sim_struct, brainsight
 
 # Path to .bsproj file
 bsproj_path = '/Volumes/levy/raw/valerocabre/clonesa/Data/ClonesaTMS/brainsight-TMS/CLONESA_002_0001/Clonesa_G2_001.bsproj'
+### To do that, it should be a txt and not a bioproj...
 
 print(f"Reading Brainsight project: {bsproj_path}")
 print("="*80)
