@@ -58,6 +58,8 @@ Normalement il devrait y avoir un script bio fait ca deja... /Users/hippolyte.dr
 /Users/hippolyte.dreyfus/Desktop/001-001-CM.xlsx tu peux checker cette exemple pour voir les structures
 
 
+---
+
 +++ Et les infos de la feuille patient / patiente :
 + A mettre dans un participants.tsv, tel que le format bids le demande.
 

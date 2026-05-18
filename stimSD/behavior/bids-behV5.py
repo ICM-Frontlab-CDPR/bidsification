@@ -40,7 +40,7 @@ print(f"📝 Log : {_log_file}\n")
 # Chemins
 # ---------------------------------------------------------------------------
 PATIENTS_DIR = Path("/Volumes/levy/raw/valerocabre/stimSD/Data/sourcedata/1_DATA/1_RAW/1_PATIENTS")
-BIDS_ROOT    = Path("/Volumes/levy/raw/valerocabre/stimSD/Data/derivatives/bids-V5bis-eCRF")
+BIDS_ROOT    = Path("/Volumes/levy/raw/valerocabre/stimSD/Data/derivatives/bids-V5-eCRF")
 RANDO_XLSX   = Path("/Volumes/levy/raw/valerocabre/stimSD/Data/STIM_SD_Randomization_List_Nov_2025_Full.xlsx")
 
 # Charger le mapping Excel File Name -> eCRF Name
@@ -187,11 +187,38 @@ def read_blocks(df: pd.DataFrame) -> list[tuple]:
             log.warning(f"    ⚠️  bloc {i}: colonnes facultatives absentes {missing_opt} → remplacées par n/a")
             log.warning(f"         (noms détectés : {[str(c) for c in chunk_cols]})")
 
-        # Lignes avec un numéro de trial valide (filtre les lignes de métadonnées)
-        trial_series = chunk.iloc[:, col_map["trial"]]
-        valid        = pd.to_numeric(trial_series, errors="coerce").notna()
+        # ── Filtre 1 : trial doit être un entier positif ──────────────────────────
+        # Rejette les décimaux (ex: 5281.6, 4356.05 = moyennes RT en ligne récap)
+        trial_series  = chunk.iloc[:, col_map["trial"]]
+        numeric_trial = pd.to_numeric(trial_series, errors="coerce")
+        valid = numeric_trial.notna() & (numeric_trial % 1 == 0) & (numeric_trial >= 1)
         if not valid.any():
             continue
+
+        # ── Filtre 2 : target doit contenir ".bmp" ────────────────────────────────
+        # Les vrais stimuli sont des fichiers .bmp (viv.mot9.bmp, nonviv12.bmp…).
+        # Les lignes récap ont des valeurs numériques dans target (N=16, 19, 20…).
+        # Ce filtre est plus fiable que la dédup pour détecter les stats entières.
+        if "target" in col_map:
+            target_text = chunk.iloc[:, col_map["target"]].astype(str).str.lower()
+            has_bmp = target_text.str.contains(r"\.bmp", na=False)
+            removed_notbmp = valid & ~has_bmp
+            if removed_notbmp.any():
+                log.warning(f"    ⚠️  bloc {i}: {removed_notbmp.sum()} ligne(s) récap-entière(s) supprimée(s) "
+                            f"(target sans .bmp : {target_text[removed_notbmp].tolist()})")
+            valid = valid & has_bmp
+
+        if not valid.any():
+            continue
+
+        # ── Filtre 3 : déduplication sur trial (sécurité résiduelle) ─────────────
+        first_occurrence = ~numeric_trial[valid].duplicated(keep="first")
+        valid_idx  = valid[valid].index[first_occurrence]
+        dup_count  = valid.sum() - len(valid_idx)
+        if dup_count > 0:
+            log.warning(f"    ⚠️  bloc {i}: {dup_count} ligne(s) dupliquée(s) supprimée(s)")
+        valid = pd.Series(False, index=chunk.index)
+        valid[valid_idx] = True
 
         # Version du test (valeur de session, 1er non-NaN)
         if "version" in col_map:

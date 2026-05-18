@@ -1,0 +1,43 @@
+📝 Log : /Users/hippolyte.dreyfus/Documents/bidsification/stimSD/_log/bids-participantsV6_20260518_162802.log
+
+🔎 Scan de /Volumes/levy/raw/valerocabre/stimSD/Data/sourcedata/1_DATA/1_RAW/1_PATIENTS ...
+🔍 33 fichiers XLSX trouvés
+
+  ✓ 001-0001-CMC          age= 68  sex=F  hand=R  mms=16
+  ✓ 001-0004-MA           age= 71  sex=M  hand=R  mms=25
+  ✓ 001-0005-LS           age= 69  sex=M  hand=R  mms=n/a
+  ⏭️  001-0005-LS déjà traité
+  ✓ 001-0006-CV           age= 72  sex=M  hand=R  mms=n/a
+  ✓ 001-0007-ME           age= 78  sex=M  hand=R  mms=26
+  ✓ 001-0008-LD           age= 70  sex=M  hand=R  mms=28
+  ✓ 001-0010-LM           age= 65  sex=F  hand=R  mms=27
+  ✓ 001-0014-BS           age= 75  sex=F  hand=L  mms=19
+  ✓ 001-0016-BJC          age= 61  sex=n/a  hand=R  mms=16
+  ✓ 001-0017-KV           age= 72  sex=F  hand=R  mms=26
+  ✓ 001-0018-JC           age= 66  sex=M  hand=R  mms=21
+  ✓ 001-0020-RN           age= 73  sex=F  hand=R  mms=24
+  ✓ 001-0021-RP           age= 66  sex=M  hand=R  mms=27
+  ✓ 001-0022-LM           age= 76  sex=F  hand=R  mms=23
+  ✓ 001-0030-GE           age= 57  sex=M  hand=R  mms=27
+  ✓ 001-0031-GS           age= 47  sex=F  hand=R  mms=26
+  ⚠️  Pas de correspondance eCRF pour '0X-00X-Initiale' → ignoré
+  ✓ 001-0032-HB           age= 67  sex=M  hand=R  mms=18
+  ✓ 001-0033-PM           age= 65  sex=F  hand=R  mms=26
+  ✓ 001-0035-LC           age= 59  sex=F  hand=R  mms=29
+  ✓ 001-0037-TJ           age=66 ans  sex=M  hand=R  mms=30
+  ✓ 001-0041-PE           age=66 ans  sex=F  hand=R  mms=28
+  ✓ 001-0046-OP           age=66 ans  sex=F  hand=R  mms=25
+  ✓ 001-0047-HJ           age=66 ans  sex=M  hand=R  mms=24
+  ✓ 001-0049-GM           age=68 ans  sex=F  hand=R  mms=20
+  ✓ 001-0053-MT           age= 70  sex=masculin  hand=R  mms=23
+  ✓ 001-0054-DC           age= 75  sex=F  hand=R  mms=27/30
+  ✓ 001-0055-BM           age= 52  sex=féminin  hand=R  mms=29/30
+  ✓ 001-0056-GC           age= 79  sex=masculin  hand=R  mms=28/30
+  ⚠️  Pas de correspondance eCRF pour '0X-00X-Initiale' → ignoré
+  ✓ 001-0057-HJ           age= 60  sex=M  hand=R  mms=24/30
+  ✓ 001-0058-TC           age= 69  sex=M  hand=R  mms=24
+
+✅ /Volumes/levy/raw/valerocabre/stimSD/Data/derivatives/bids-V6-eCRF/participants.tsv
+   30 participants  |  colonnes : ['participant_id', 'age', 'sex', 'handedness', 'education', 'disease_onset_year', 'diagnosis_year', 'consent_date', 'mms', 'madrs', 'bref', 'mattis', 'bdae_severity', 'do80_score']
+
+📝 Log : /Users/hippolyte.dreyfus/Documents/bidsification/stimSD/_log/bids-participantsV6_20260518_162802.log
