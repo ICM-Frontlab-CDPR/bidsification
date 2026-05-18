@@ -1,0 +1,488 @@
+(basic) ➜  behavior git:(main) ✗ python bids-behV5.py 
+🔎 Scan du dossier /Volumes/levy/raw/valerocabre/stimSD/Data/sourcedata/1_DATA/1_RAW/1_PATIENTS ...
+🔍 33 fichiers XLSX trouvés
+  - 3_TESTS_LANGAGIERS/001-001-CM.xlsx
+  - 3_TESTS_LANGAGIERS/001-004-MA.xlsx
+  - 001-0005-LS/001-003-LS.xlsx
+  - 001-0005-LS/0_001-005-LS.xlsx
+  - 001-0006-CV/01-006-CV.xlsx
+  - 001-0007-ME/001-0007-ME.xlsx
+  - 001-0008-LD/001-008-LD.xlsx
+  - 001-0010-LM/001-009-LM.xlsx
+  - 3_TESTS_LANGAGIERS/001-0012-BS.xlsx
+  - 3_TESTS_LANGAGIERS/001-0017-BJC.xlsx
+  - 3_TESTS_LANGAGIERS/003-001-KV.xlsx
+  - 3_TESTS_LANGAGIERS/001-0019-JC.xlsx
+  - 3_TESTS_LANGAGIERS/001-0020-RN.xlsx
+  - 3_TESTS_LANGAGIERS/001-0021-RP.xlsx
+  - 3_TESTS_LANGAGIERS/01-0024LLM.xlsx
+  - 3_TESTS LANGAGIERS/001-0032-EG (3)der.xlsx
+  - 3_TESTS_LANGAGIERS/001-0033-GS.xlsx
+  - 3_TESTS_LANGAGIERS/0X-00X-Initiale.xlsx
+  - 3_TESTS_LANGAGIERS/001-0034-HB.xlsx
+  - 3_TESTS_LANGAGIERS/001-0035-PM.xlsx
+  - 3_TESTS_LANGAGIERS/001-0036-LC.xlsx
+  - 3_TESTS_LANGAGIERS/001-0038-TJ.xlsx
+  - 3_TESTS_LANGAGIERS/001-0043-PE.xlsx
+  - 3_TESTS_LANGAGIERS/001-0048-OP.xlsx
+  - 3_TESTS_LANGAGIERS/001-0049-HJ.xlsx
+  - 3_TESTS_LANGAGIERS/001-0051-GM.xlsx
+  - 3_TESTS_LANGAGIERS/001-0056-MT.xlsx
+  - 3_TESTS_LANGAGIERS/001-0057-DC.xlsx
+  - 3_TESTS_LANGAGIERS/001-0058-BM.xlsx
+  - 001-0056-GC/001-0059-GC.xlsx
+  - 3_TESTS_LANGAGIERS/0X-00X-Initiale.xlsx
+  - 3_TESTS_LANGAGIERS/001-0060-HJ.xlsx
+  - 3_TESTS_LANGAGIERS/001-0061-TC.xlsx
+
+⚠️  Voulez-vous convertir ces 33 fichiers en BIDS beh? (o/n): o
+🔄 Écraser les fichiers déjà existants? (o/n): o
+
+📂 sub-001-0001-CMC  (3_TESTS_LANGAGIERS/001-001-CM.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 4 bloc(s) détecté(s)
+    ✓ sub-001-0001-CMC_ses-01_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0001-CMC_ses-02_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0001-CMC_ses-03_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0001-CMC_ses-04_task-asverbale_beh.tsv  [test_version=2]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 4 bloc(s) détecté(s)
+    ✓ sub-001-0001-CMC_ses-01_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0001-CMC_ses-02_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0001-CMC_ses-03_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0001-CMC_ses-04_task-asvisuelle_beh.tsv  [test_version=2]
+📂 sub-001-0004-MA  (3_TESTS_LANGAGIERS/001-004-MA.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 4 bloc(s) détecté(s)
+    ✓ sub-001-0004-MA_ses-01_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0004-MA_ses-02_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0004-MA_ses-03_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0004-MA_ses-04_task-asverbale_beh.tsv  [test_version=2]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 4 bloc(s) détecté(s)
+    ✓ sub-001-0004-MA_ses-01_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0004-MA_ses-02_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0004-MA_ses-03_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0004-MA_ses-04_task-asvisuelle_beh.tsv  [test_version=2]
+📂 sub-001-0005-LS  (001-0005-LS/001-003-LS.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 4 bloc(s) détecté(s)
+    ✓ sub-001-0005-LS_ses-01_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0005-LS_ses-02_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0005-LS_ses-03_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0005-LS_ses-04_task-asverbale_beh.tsv  [test_version=2]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 4 bloc(s) détecté(s)
+    ✓ sub-001-0005-LS_ses-01_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0005-LS_ses-02_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0005-LS_ses-03_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0005-LS_ses-03_task-asvisuelle_beh.tsv  [test_version=2]
+📂 sub-001-0005-LS  (001-0005-LS/0_001-005-LS.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 4 bloc(s) détecté(s)
+    ✓ sub-001-0005-LS_ses-01_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0005-LS_ses-02_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0005-LS_ses-03_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0005-LS_ses-04_task-asverbale_beh.tsv  [test_version=2]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 4 bloc(s) détecté(s)
+    ✓ sub-001-0005-LS_ses-01_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0005-LS_ses-02_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0005-LS_ses-03_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0005-LS_ses-03_task-asvisuelle_beh.tsv  [test_version=2]
+📂 sub-001-0006-CV  (001-0006-CV/01-006-CV.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 6 bloc(s) détecté(s)
+    ✓ sub-001-0006-CV_ses-01_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0006-CV_ses-02_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0006-CV_ses-03_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0006-CV_ses-04_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0006-CV_ses-05_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0006-CV_ses-06_task-asverbale_beh.tsv  [test_version=1]
+  ⏳ Lecture de 'AS visuelle'...
+    ⚠️  bloc 3: colonnes introuvables ['session', 'target'] → bloc ignoré
+         (noms détectés : ['PAT001-006-CV.3', 'Trial.3', 'condtarget', 'ImageDisplay2.ACC.3', 'ImageDisplay2.RT.3', 'RT CORR'])
+  📋 'AS visuelle': 5 bloc(s) détecté(s)
+    ✓ sub-001-0006-CV_ses-01_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0006-CV_ses-02_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0006-CV_ses-03_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0006-CV_ses-05_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0006-CV_ses-06_task-asvisuelle_beh.tsv  [test_version=1]
+📂 sub-001-0007-ME  (001-0007-ME/001-0007-ME.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+    ⚠️  bloc 1: colonnes introuvables ['participant_id'] → bloc ignoré
+         (noms détectés : ['Unnamed: 11', 'Version.1', 'Session.1', 'Trial.1', 'Target.1', 'Condition target.1', 'Réponse ?.1', 'ImageDisplay2.ACC.1', 'ImageDisplay2.RT.1', 'Unnamed: 20'])
+    ⚠️  bloc 2: colonnes introuvables ['participant_id'] → bloc ignoré
+         (noms détectés : ['Unnamed: 22', 'Version.2', 'Session.2', 'Trial.2', 'Target.2', 'Condition target.2', 'ImageDisplay2.ACC.2', 'ImageDisplay2.RT.2', 'Unnamed: 30'])
+  📋 'AS verbale': 2 bloc(s) détecté(s)
+    ✓ sub-001-0007-ME_ses-01_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0007-ME_ses-03_task-asverbale_beh.tsv  [test_version=2]
+  ⏳ Lecture de 'AS visuelle'...
+    ⚠️  bloc 2: colonnes introuvables ['participant_id'] → bloc ignoré
+         (noms détectés : ['Unnamed: 22', 'Version.2', 'Session.2', 'Trial.2', 'Target.2', 'Condition target.2', 'ImageDisplay2.ACC.2', 'ImageDisplay2.RT.2', 'Unnamed: 30'])
+  📋 'AS visuelle': 3 bloc(s) détecté(s)
+    ✓ sub-001-0007-ME_ses-01_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0007-ME_ses-02_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0007-ME_ses-03_task-asvisuelle_beh.tsv  [test_version=2]
+📂 sub-001-0008-LD  (001-0008-LD/001-008-LD.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 4 bloc(s) détecté(s)
+    ✓ sub-001-0008-LD_ses-01_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0008-LD_ses-02_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0008-LD_ses-03_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0008-LD_ses-04_task-asverbale_beh.tsv  [test_version=2]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 4 bloc(s) détecté(s)
+    ✓ sub-001-0008-LD_ses-01_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0008-LD_ses-02_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0008-LD_ses-03_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0008-LD_ses-04_task-asvisuelle_beh.tsv  [test_version=2]
+📂 sub-001-0010-LM  (001-0010-LM/001-009-LM.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 5 bloc(s) détecté(s)
+    ✓ sub-001-0010-LM_ses-01_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0010-LM_ses-02_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0010-LM_ses-03_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0010-LM_ses-04_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0010-LM_ses-05_task-asverbale_beh.tsv  [test_version=1]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 5 bloc(s) détecté(s)
+    ✓ sub-001-0010-LM_ses-01_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0010-LM_ses-01_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0010-LM_ses-03_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0010-LM_ses-04_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0010-LM_ses-05_task-asvisuelle_beh.tsv  [test_version=1]
+📂 sub-001-0014-BS  (3_TESTS_LANGAGIERS/001-0012-BS.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 5 bloc(s) détecté(s)
+    ✓ sub-001-0014-BS_ses-01_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0014-BS_ses-02_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0014-BS_ses-03_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0014-BS_ses-03_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0014-BS_ses-05_task-asverbale_beh.tsv  [test_version=1]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 5 bloc(s) détecté(s)
+    ✓ sub-001-0014-BS_ses-01_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0014-BS_ses-02_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0014-BS_ses-03_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0014-BS_ses-04_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0014-BS_ses-05_task-asvisuelle_beh.tsv  [test_version=1]
+📂 sub-001-0016-BJC  (3_TESTS_LANGAGIERS/001-0017-BJC.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 4 bloc(s) détecté(s)
+    ✓ sub-001-0016-BJC_ses-01_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0016-BJC_ses-02_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0016-BJC_ses-03_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0016-BJC_ses-04_task-asverbale_beh.tsv  [test_version=2]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 4 bloc(s) détecté(s)
+    ✓ sub-001-0016-BJC_ses-01_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0016-BJC_ses-02_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0016-BJC_ses-03_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0016-BJC_ses-04_task-asvisuelle_beh.tsv  [test_version=2]
+📂 sub-001-0017-KV  (3_TESTS_LANGAGIERS/003-001-KV.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+    ⚠️  bloc 3: colonnes introuvables ['target'] → bloc ignoré
+         (noms détectés : ['PAT001-0017-KV.3', 'Version.3', 'Session.3', 'Trial.3', 'condtarget', 'ImageDisplay2.ACC.3', 'ImageDisplay2.RT.3', 'RT Correct.3'])
+  📋 'AS verbale': 3 bloc(s) détecté(s)
+    ✓ sub-001-0017-KV_ses-01_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0017-KV_ses-02_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0017-KV_ses-03_task-asverbale_beh.tsv  [test_version=1]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 4 bloc(s) détecté(s)
+    ✓ sub-001-0017-KV_ses-01_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0017-KV_ses-02_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0017-KV_ses-03_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0017-KV_ses-04_task-asvisuelle_beh.tsv  [test_version=1]
+📂 sub-001-0018-JC  (3_TESTS_LANGAGIERS/001-0019-JC.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 4 bloc(s) détecté(s)
+    ✓ sub-001-0018-JC_ses-01_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0018-JC_ses-02_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0018-JC_ses-03_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0018-JC_ses-03_task-asverbale_beh.tsv  [test_version=1]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 4 bloc(s) détecté(s)
+    ✓ sub-001-0018-JC_ses-01_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0018-JC_ses-02_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0018-JC_ses-03_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0018-JC_ses-03_task-asvisuelle_beh.tsv  [test_version=1]
+📂 sub-001-0020-RN  (3_TESTS_LANGAGIERS/001-0020-RN.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 4 bloc(s) détecté(s)
+    ✓ sub-001-0020-RN_ses-01_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0020-RN_ses-02_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0020-RN_ses-03_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0020-RN_ses-04_task-asverbale_beh.tsv  [test_version=1]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 4 bloc(s) détecté(s)
+    ✓ sub-001-0020-RN_ses-01_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0020-RN_ses-02_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0020-RN_ses-03_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0020-RN_ses-04_task-asvisuelle_beh.tsv  [test_version=1]
+📂 sub-001-0021-RP  (3_TESTS_LANGAGIERS/001-0021-RP.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 5 bloc(s) détecté(s)
+    ✓ sub-001-0021-RP_ses-01_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0021-RP_ses-02_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0021-RP_ses-03_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0021-RP_ses-04_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0021-RP_ses-05_task-asverbale_beh.tsv  [test_version=1]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 5 bloc(s) détecté(s)
+    ✓ sub-001-0021-RP_ses-01_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0021-RP_ses-02_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0021-RP_ses-03_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0021-RP_ses-04_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0021-RP_ses-05_task-asvisuelle_beh.tsv  [test_version=1]
+📂 sub-001-0022-LM  (3_TESTS_LANGAGIERS/01-0024LLM.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+    ⚠️  bloc 4: colonnes introuvables ['target'] → bloc ignoré
+         (noms détectés : ['PAT001-0024LLM.4', 'Version.4', 'Session.4', 'Trial.4', 'condtarget.1', 'ImageDisplay2.ACC.4', 'ImageDisplay2.RT.4', 'TR correct.4'])
+  📋 'AS verbale': 4 bloc(s) détecté(s)
+    ✓ sub-001-0022-LM_ses-01_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0022-LM_ses-02_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0022-LM_ses-02_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0022-LM_ses-04_task-asverbale_beh.tsv  [test_version=2]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 5 bloc(s) détecté(s)
+    ✓ sub-001-0022-LM_ses-01_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0022-LM_ses-01_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0022-LM_ses-03_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0022-LM_ses-03_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0022-LM_ses-05_task-asvisuelle_beh.tsv  [test_version=1]
+📂 sub-001-0030-GE  (3_TESTS LANGAGIERS/001-0032-EG (3)der.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+    ⚠️  bloc 2: colonnes introuvables ['response_time'] → bloc ignoré
+         (noms détectés : ['PAT001-0032-EG.2', 'Version.2', 'Session.2', 'Trial.2', 'Target.2', 'Condition target.1', 'ImageDisplay2.ACC.2'])
+  📋 'AS verbale': 4 bloc(s) détecté(s)
+    ✓ sub-001-0030-GE_ses-01_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0030-GE_ses-02_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0030-GE_ses-04_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0030-GE_ses-04_task-asverbale_beh.tsv  [test_version=1]
+  ⏳ Lecture de 'AS visuelle'...
+    ⚠️  bloc 2: colonnes introuvables ['session', 'response_time'] → bloc ignoré
+         (noms détectés : ['PAT001-0032-EG.2', 'Trial.2', 'Target.2', 'Condition target.1', 'ImageDisplay2.ACC.2'])
+  📋 'AS visuelle': 4 bloc(s) détecté(s)
+    ✓ sub-001-0030-GE_ses-01_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0030-GE_ses-02_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0030-GE_ses-03_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0030-GE_ses-04_task-asvisuelle_beh.tsv  [test_version=1]
+📂 sub-001-0031-GS  (3_TESTS_LANGAGIERS/001-0033-GS.xlsx)
+  ⏭️  Feuille 'AS verbale' absente
+  ⏭️  Feuille 'AS visuelle' absente
+  ⚠️  Pas de correspondance eCRF pour '0X-00X-Initiale', fichier ignoré
+📂 sub-001-0032-HB  (3_TESTS_LANGAGIERS/001-0034-HB.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+    ⚠️  bloc 2: colonnes introuvables ['target'] → bloc ignoré
+         (noms détectés : ['PAT001-0034-HB.2', 'Version.2', 'Session.2', 'Trial.2', 'condtarget.2', 'ImageDisplay2.ACC.2', 'ImageDisplay2.RT.2', 'RT correct.2'])
+    ⚠️  bloc 3: colonnes introuvables ['target'] → bloc ignoré
+         (noms détectés : ['PAT001-0034-HB.3', 'Version.3', 'Session.3', 'Trial.3', 'condtarget.3', 'ImageDisplay2.ACC.3', 'ImageDisplay2.RT.3', 'RT correct.3'])
+    ⚠️  bloc 5: colonnes introuvables ['target'] → bloc ignoré
+         (noms détectés : ['PAT001-0034-HB.5', 'Version.5', 'Session.5', 'Trial.5', 'condtarget.5', 'ImageDisplay2.ACC.5', 'ImageDisplay2.RT.5', 'RT correct.5'])
+    ⚠️  bloc 6: colonnes introuvables ['target'] → bloc ignoré
+         (noms détectés : ['PAT001-0034-HB.6', 'Version.6', 'Session.6', 'Trial.6', 'condtarget.6', 'ImageDisplay2.ACC.6', 'ImageDisplay2.RT.6', 'RT correct.6'])
+  📋 'AS verbale': 3 bloc(s) détecté(s)
+    ✓ sub-001-0032-HB_ses-01_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0032-HB_ses-02_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0032-HB_ses-05_task-asverbale_beh.tsv  [test_version=1]
+  ⏳ Lecture de 'AS visuelle'...
+    ⚠️  bloc 5: colonnes introuvables ['target'] → bloc ignoré
+         (noms détectés : ['PAT001-0034-HB.5', 'Version.5', 'Session.5', 'Trial.5', 'condtarget.5', 'ImageDisplay2.ACC.5', 'ImageDisplay2.RT.5', 'RT Corr.5'])
+    ⚠️  bloc 6: colonnes introuvables ['target'] → bloc ignoré
+         (noms détectés : ['PAT001-0034-HB.6', 'Version.6', 'Session.6', 'Trial.6', 'condtarget.6', 'ImageDisplay2.ACC.6', 'ImageDisplay2.RT.6', 'RT Corr.6'])
+  📋 'AS visuelle': 5 bloc(s) détecté(s)
+    ✓ sub-001-0032-HB_ses-01_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0032-HB_ses-02_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0032-HB_ses-03_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0032-HB_ses-04_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0032-HB_ses-05_task-asvisuelle_beh.tsv  [test_version=1]
+📂 sub-001-0033-PM  (3_TESTS_LANGAGIERS/001-0035-PM.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 4 bloc(s) détecté(s)
+    ✓ sub-001-0033-PM_ses-01_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0033-PM_ses-02_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0033-PM_ses-03_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0033-PM_ses-04_task-asverbale_beh.tsv  [test_version=1]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 4 bloc(s) détecté(s)
+    ✓ sub-001-0033-PM_ses-01_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0033-PM_ses-02_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0033-PM_ses-03_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0033-PM_ses-04_task-asvisuelle_beh.tsv  [test_version=1]
+📂 sub-001-0035-LC  (3_TESTS_LANGAGIERS/001-0036-LC.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 4 bloc(s) détecté(s)
+    ✓ sub-001-0035-LC_ses-01_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0035-LC_ses-02_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0035-LC_ses-03_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0035-LC_ses-04_task-asverbale_beh.tsv  [test_version=2]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 4 bloc(s) détecté(s)
+    ✓ sub-001-0035-LC_ses-01_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0035-LC_ses-02_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0035-LC_ses-03_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0035-LC_ses-04_task-asvisuelle_beh.tsv  [test_version=2]
+📂 sub-001-0037-TJ  (3_TESTS_LANGAGIERS/001-0038-TJ.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 4 bloc(s) détecté(s)
+    ✓ sub-001-0037-TJ_ses-01_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0037-TJ_ses-02_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0037-TJ_ses-03_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0037-TJ_ses-04_task-asverbale_beh.tsv  [test_version=2]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 4 bloc(s) détecté(s)
+    ✓ sub-001-0037-TJ_ses-01_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0037-TJ_ses-02_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0037-TJ_ses-03_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0037-TJ_ses-04_task-asvisuelle_beh.tsv  [test_version=2]
+📂 sub-001-0041-PE  (3_TESTS_LANGAGIERS/001-0043-PE.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 4 bloc(s) détecté(s)
+    ✓ sub-001-0041-PE_ses-01_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0041-PE_ses-02_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0041-PE_ses-03_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0041-PE_ses-04_task-asverbale_beh.tsv  [test_version=1]
+  ⏳ Lecture de 'AS visuelle'...
+    ⚠️  bloc 3: colonnes introuvables ['target'] → bloc ignoré
+         (noms détectés : ['PAT001-0043-PE.3', 'Version.3', 'Session.3', 'Trial.3', 'condtarget.3', 'ImageDisplay2.ACC.3', 'ImageDisplay2.RT.3', 'RT correct.1'])
+  📋 'AS visuelle': 3 bloc(s) détecté(s)
+    ✓ sub-001-0041-PE_ses-01_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0041-PE_ses-02_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0041-PE_ses-03_task-asvisuelle_beh.tsv  [test_version=1]
+📂 sub-001-0046-OP  (3_TESTS_LANGAGIERS/001-0048-OP.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 4 bloc(s) détecté(s)
+    ✓ sub-001-0046-OP_ses-01_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0046-OP_ses-02_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0046-OP_ses-03_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0046-OP_ses-04_task-asverbale_beh.tsv  [test_version=1]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 4 bloc(s) détecté(s)
+    ✓ sub-001-0046-OP_ses-01_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0046-OP_ses-02_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0046-OP_ses-03_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0046-OP_ses-04_task-asvisuelle_beh.tsv  [test_version=1]
+📂 sub-001-0047-HJ  (3_TESTS_LANGAGIERS/001-0049-HJ.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 4 bloc(s) détecté(s)
+    ✓ sub-001-0047-HJ_ses-01_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0047-HJ_ses-02_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0047-HJ_ses-03_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0047-HJ_ses-04_task-asverbale_beh.tsv  [test_version=1]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 4 bloc(s) détecté(s)
+    ✓ sub-001-0047-HJ_ses-01_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0047-HJ_ses-02_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0047-HJ_ses-03_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0047-HJ_ses-04_task-asvisuelle_beh.tsv  [test_version=1]
+📂 sub-001-0049-GM  (3_TESTS_LANGAGIERS/001-0051-GM.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 4 bloc(s) détecté(s)
+    ✓ sub-001-0049-GM_ses-01_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0049-GM_ses-02_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0049-GM_ses-03_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0049-GM_ses-04_task-asverbale_beh.tsv  [test_version=2]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 4 bloc(s) détecté(s)
+    ✓ sub-001-0049-GM_ses-01_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0049-GM_ses-02_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0049-GM_ses-03_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0049-GM_ses-04_task-asvisuelle_beh.tsv  [test_version=2]
+📂 sub-001-0053-MT  (3_TESTS_LANGAGIERS/001-0056-MT.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+  📋 'AS verbale': 3 bloc(s) détecté(s)
+    ✓ sub-001-0053-MT_ses-02_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0053-MT_ses-03_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0053-MT_ses-04_task-asverbale_beh.tsv  [test_version=2]
+  ⏳ Lecture de 'AS visuelle'...
+  📋 'AS visuelle': 4 bloc(s) détecté(s)
+    ✓ sub-001-0053-MT_ses-01_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0053-MT_ses-02_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0053-MT_ses-03_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0053-MT_ses-04_task-asvisuelle_beh.tsv  [test_version=2]
+📂 sub-001-0054-DC  (3_TESTS_LANGAGIERS/001-0057-DC.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+    ⚠️  bloc 3: colonnes introuvables ['target', 'condition_target', 'response_time'] → bloc ignoré
+         (noms détectés : ['PAT001-0057-DC.3', 'Version.3', 'Session.3', 'Trial.3', 'ImageDisplay2.ACC.3', 'RT correct.2'])
+  📋 'AS verbale': 3 bloc(s) détecté(s)
+    ✓ sub-001-0054-DC_ses-01_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0054-DC_ses-02_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0054-DC_ses-03_task-asverbale_beh.tsv  [test_version=2]
+  ⏳ Lecture de 'AS visuelle'...
+    ⚠️  bloc 3: colonnes introuvables ['target', 'condition_target', 'response_time'] → bloc ignoré
+         (noms détectés : ['PAT001-0057-DC.3', 'Version.3', 'Session.3', 'Trial.3', 'ImageDisplay2.ACC.3', 'RT Corr.2'])
+  📋 'AS visuelle': 3 bloc(s) détecté(s)
+    ✓ sub-001-0054-DC_ses-01_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0054-DC_ses-02_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0054-DC_ses-03_task-asvisuelle_beh.tsv  [test_version=2]
+📂 sub-001-0055-BM  (3_TESTS_LANGAGIERS/001-0058-BM.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+    ⚠️  bloc 3: colonnes introuvables ['target', 'condition_target', 'response_time'] → bloc ignoré
+         (noms détectés : ['PAT001-0058-BM.3', 'Version.3', 'Session.3', 'Trial.3', 'ImageDisplay2.ACC.3', 'RT correct.3'])
+  📋 'AS verbale': 3 bloc(s) détecté(s)
+    ✓ sub-001-0055-BM_ses-01_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0055-BM_ses-02_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0055-BM_ses-03_task-asverbale_beh.tsv  [test_version=1]
+  ⏳ Lecture de 'AS visuelle'...
+    ⚠️  bloc 3: colonnes introuvables ['target', 'condition_target', 'response_time'] → bloc ignoré
+         (noms détectés : ['PAT001-0058-BM.3', 'Version.3', 'Session.3', 'Trial.3', 'ImageDisplay2.ACC.3', 'RT Corr.3'])
+  📋 'AS visuelle': 3 bloc(s) détecté(s)
+    ✓ sub-001-0055-BM_ses-01_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0055-BM_ses-02_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0055-BM_ses-03_task-asvisuelle_beh.tsv  [test_version=1]
+📂 sub-001-0056-GC  (001-0056-GC/001-0059-GC.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+    ⚠️  bloc 3: colonnes introuvables ['target', 'condition_target', 'response_time'] → bloc ignoré
+         (noms détectés : ['PAT001-0059-GC.3', 'Version.3', 'Session.3', 'Trial.3', 'ImageDisplay2.ACC.3', 'RT correct.3'])
+  📋 'AS verbale': 3 bloc(s) détecté(s)
+    ✓ sub-001-0056-GC_ses-01_task-asverbale_beh.tsv  [test_version=2]
+    ✓ sub-001-0056-GC_ses-02_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0056-GC_ses-03_task-asverbale_beh.tsv  [test_version=1]
+  ⏳ Lecture de 'AS visuelle'...
+    ⚠️  bloc 3: colonnes introuvables ['target', 'condition_target', 'response_time'] → bloc ignoré
+         (noms détectés : ['PAT001-0059-GC.3', 'Version.3', 'Session.3', 'Trial.3', 'ImageDisplay2.ACC.3', 'RT Corr.3'])
+  📋 'AS visuelle': 3 bloc(s) détecté(s)
+    ✓ sub-001-0056-GC_ses-01_task-asvisuelle_beh.tsv  [test_version=2]
+    ✓ sub-001-0056-GC_ses-02_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0056-GC_ses-03_task-asvisuelle_beh.tsv  [test_version=1]
+  ⚠️  Pas de correspondance eCRF pour '0X-00X-Initiale', fichier ignoré
+📂 sub-001-0057-HJ  (3_TESTS_LANGAGIERS/001-0060-HJ.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+    ⚠️  bloc 3: colonnes introuvables ['target', 'condition_target', 'response_time'] → bloc ignoré
+         (noms détectés : ['PAT001-0060-HJ.3', 'Version.3', 'Session.3', 'Trial.3', 'ImageDisplay2.ACC.3', 'RT correct.3'])
+  📋 'AS verbale': 3 bloc(s) détecté(s)
+    ✓ sub-001-0057-HJ_ses-01_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0057-HJ_ses-02_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0057-HJ_ses-03_task-asverbale_beh.tsv  [test_version=2]
+  ⏳ Lecture de 'AS visuelle'...
+    ⚠️  bloc 3: colonnes introuvables ['target', 'condition_target', 'response_time'] → bloc ignoré
+         (noms détectés : ['PAT001-00-.2', 'Version.3', 'Session.3', 'Trial.3', 'ImageDisplay2.ACC.3', 'RT Corr.3'])
+  📋 'AS visuelle': 3 bloc(s) détecté(s)
+    ✓ sub-001-0057-HJ_ses-01_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0057-HJ_ses-02_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0057-HJ_ses-03_task-asvisuelle_beh.tsv  [test_version=1 ou 2]
+📂 sub-001-0058-TC  (3_TESTS_LANGAGIERS/001-0061-TC.xlsx)
+  ⏳ Lecture de 'AS verbale'...
+    ⚠️  bloc 2: colonnes introuvables ['target', 'condition_target', 'response_time'] → bloc ignoré
+         (noms détectés : ['PAT001-0061-TC.2', 'Version.2', 'Session.2', 'Trial.2', 'ImageDisplay2.ACC.2', 'RT correct.2'])
+    ⚠️  bloc 3: colonnes introuvables ['target', 'condition_target', 'response_time'] → bloc ignoré
+         (noms détectés : ['PAT001-0061-TC.3', 'Version.3', 'Session.3', 'Trial.3', 'ImageDisplay2.ACC.3', 'RT correct.3'])
+  📋 'AS verbale': 2 bloc(s) détecté(s)
+    ✓ sub-001-0058-TC_ses-01_task-asverbale_beh.tsv  [test_version=1]
+    ✓ sub-001-0058-TC_ses-02_task-asverbale_beh.tsv  [test_version=1]
+  ⏳ Lecture de 'AS visuelle'...
+    ⚠️  bloc 2: colonnes introuvables ['target', 'condition_target', 'response_time'] → bloc ignoré
+         (noms détectés : ['PAT001-00-.1', 'Version.2', 'Session.2', 'Trial.2', 'ImageDisplay2.ACC.2', 'RT Corr.2'])
+    ⚠️  bloc 3: colonnes introuvables ['target', 'condition_target', 'response_time'] → bloc ignoré
+         (noms détectés : ['PAT001-00-.2', 'Version.3', 'Session.3', 'Trial.3', 'ImageDisplay2.ACC.3', 'RT Corr.3'])
+  📋 'AS visuelle': 2 bloc(s) détecté(s)
+    ✓ sub-001-0058-TC_ses-01_task-asvisuelle_beh.tsv  [test_version=1]
+    ✓ sub-001-0058-TC_ses-02_task-asvisuelle_beh.tsv  [test_version=1]
+
+======================================================================
+📊 RAPPORT FINAL
+======================================================================
+  Fichiers XLSX traités : 33
+  TSV écrits            : 232 ✓
+  Erreurs / ignorés     : 2 ❌

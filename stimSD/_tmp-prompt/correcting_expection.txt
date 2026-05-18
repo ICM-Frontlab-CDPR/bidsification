@@ -1,0 +1,65 @@
+ok jaimerais cleaner un peu plus la bidsification du behavior de stim-SD :
+/Users/hippolyte.dreyfus/Documents/bidsification/stimSD/behavior/bids-behV4_with_exception.py (ici il y a le path du dernier script en date)
+
+et les données sont là:
+/Volumes/levy/raw/valerocabre/stimSD/Data/sourcedata/1_DATA/1_RAW/1_PATIENTS/001-0001-CMC/3_TESTS_LANGAGIERS/001-001-CM.xlsx (pour chaque patient)
+
+l'output actuel est la:
+/Volumes/levy/raw/valerocabre/stimSD/Data/derivatives/bids-V4-eCRF
+
+Il faudrait que tu ecrives ici la nouvelle version qui corrige certaines exception actuelles non traitées :
+/Users/hippolyte.dreyfus/Documents/bidsification/stimSD/behavior/bids-behV5.py
+
+- add version du test passer (colonne Version dans le sourcedata)
+- décalage de colonne pour certaine session (exemple ci dessous) :
+sub-001-0001-CMC	ses-04	23	nonviv.mot5.bmp	non vivant	0	0
+sub-001-0001-CMC	ses-04	24	viv.mot16.bmp	vivant	0	0
+sub-001-0001-CMC	ses-04	25	nonviv.mot22.bmp	non vivant	0	7323
+sub-001-0001-CMC	ses-04	26	viv.mot22.bmp	vivant	1	7695
+sub-001-0004-MA	ses-01	1	nonviv.mot19.bmp	non vivant	1	6283
+sub-001-0004-MA	ses-01	2	nonviv.mot8.bmp	non vivant	1	5663
+sub-001-0004-MA	ses-01	3	viv.mot25.bmp	vivant	1	7518
+sub-001-0004-MA	ses-01	4	viv.mot17.bmp	vivant	1	7391
+sub-001-0004-MA	ses-01	5	nonviv.mot15.bmp	non vivant	1	4734
+sub-001-0004-MA	ses-01	6	nonviv.mot9.bmp	non vivant	1	5732
+sub-001-0004-MA	ses-01	7	nonviv.mot14.bmp	non vivant	1	5519
+
+sub-001-0014-BS	ses-05	22	viv.mot24.bmp	vivant	1	6356
+sub-001-0014-BS	ses-05	23	viv.mot5.bmp	vivant	1	5953
+sub-001-0014-BS	ses-05	24	nonviv.mot8.bmp	non vivant	1	7550
+sub-001-0014-BS	ses-05	25	nonviv.mot13.bmp	non vivant	0	4439
+sub-001-0014-BS	ses-05	26	nonviv.mot10.bmp	non vivant	1	7567
+sub-001-0016-BJC	ses-01	1	viv.mot9.bmp	vivant	1	1
+sub-001-0016-BJC	ses-01	2	nonviv.mot16.bmp	non vivant	2	1
+sub-001-0016-BJC	ses-01	3	nonviv.mot15.bmp	non vivant	2	0
+sub-001-0016-BJC	ses-01	4	viv.mot26.bmp	vivant	2	1
+sub-001-0016-BJC	ses-01	5	viv.mot18.bmp	vivant	2	0
+
+
+++ peux tu faire tous les check ou tu as besoin d'autorisation dans un premier temps comme ca je vais manger une fois aue tu nas plus besoin de moi
+++ /Users/hippolyte.dreyfus/Documents/bidsification/stimSD/_tmp ici plutot a chaque fois que tu as besoin decrire des scripts temporaires d'inspection, ca me permet de relire ce que tu fais
+----
+
+
+
++++/Volumes/levy/raw/valerocabre/stimSD/Data/derivatives/beh/task-asverbale_beh_eCRF.tsv check ce chemin stp c'est le rassemblement en un seul fichier de tous les participants...
+Normalement il devrait y avoir un script bio fait ca deja...
+
+
++++Et ajouter les autres feuilles au bon format (en plus de AS- verbale + AS visuelle):
+- EXE verb
+- EXE visu
+- FLUENCE cat
+- FLUENCE  verb
+- DC cat
+- DENO
+- LECTURE
+- BIP
+/Users/hippolyte.dreyfus/Desktop/001-001-CM.xlsx tu peux checker cette exemple pour voir les structures
+
+
++++ Et les infos de la feuille patient / patiente :
++ A mettre dans un participants.tsv, tel que le format bids le demande.
+
+
+
