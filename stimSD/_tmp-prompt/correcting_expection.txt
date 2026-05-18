@@ -43,7 +43,7 @@ sub-001-0016-BJC	ses-01	5	viv.mot18.bmp	vivant	2	0
 
 
 +++/Volumes/levy/raw/valerocabre/stimSD/Data/derivatives/beh/task-asverbale_beh_eCRF.tsv check ce chemin stp c'est le rassemblement en un seul fichier de tous les participants...
-Normalement il devrait y avoir un script bio fait ca deja...
+Normalement il devrait y avoir un script bio fait ca deja... /Users/hippolyte.dreyfus/Documents/bidsification/stimSD/behavior/one-tsv-by-modal.py
 
 
 +++Et ajouter les autres feuilles au bon format (en plus de AS- verbale + AS visuelle):

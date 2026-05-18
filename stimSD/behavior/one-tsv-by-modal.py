@@ -4,15 +4,34 @@ Rassemble tous les TSV BIDS beh en un seul fichier par tâche (modalité),
 en ajoutant les colonnes participant_id et session extraites du nom de fichier.
 
 Output :
-  /Volumes/.../beh-preprocess/task-asverbale_beh.tsv
-  /Volumes/.../beh-preprocess/task-asvisuelle_beh.tsv
+  /Volumes/.../beh/task-asverbale_beh_eCRF.tsv
+  /Volumes/.../beh/task-asvisuelle_beh_eCRF.tsv
 """
+import logging
 import re
 import pandas as pd
+from datetime import datetime
 from pathlib import Path
 
-BIDS_ROOT = Path("/Volumes/levy/raw/valerocabre/stimSD/Data/derivatives/bidsV4/")
-OUT_DIR   = Path("/Volumes/levy/raw/valerocabre/stimSD/Data/derivatives/beh-preprocess/")
+BIDS_ROOT = Path("/Volumes/levy/raw/valerocabre/stimSD/Data/derivatives/bids-V5-eCRF/")
+OUT_DIR   = Path("/Volumes/levy/raw/valerocabre/stimSD/Data/derivatives/beh/")
+
+# ---------------------------------------------------------------------------
+# Logging
+# ---------------------------------------------------------------------------
+_LOG_DIR = Path("/Users/hippolyte.dreyfus/Documents/bidsification/stimSD/_log")
+_LOG_DIR.mkdir(parents=True, exist_ok=True)
+_log_file = _LOG_DIR / f"one-tsv-by-modal_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(message)s",
+    handlers=[
+        logging.FileHandler(_log_file, encoding="utf-8"),
+        logging.StreamHandler(),
+    ],
+)
+log = logging.getLogger()
+log.info(f"📝 Log : {_log_file}\n")
 
 TASKS = ["asverbale", "asvisuelle"]
 
@@ -20,9 +39,9 @@ TASKS = ["asverbale", "asvisuelle"]
 # ex: sub-001001CM_ses-01_task-asverbale_beh.tsv
 FNAME_RE = re.compile(r"^(sub-[^_]+)_(ses-[^_]+)_task-([^_]+)_beh\.tsv$")
 
-print(f"🔎 Scan de {BIDS_ROOT} ...", flush=True)
+log.info(f"🔎 Scan de {BIDS_ROOT} ...")
 tsv_files = sorted(BIDS_ROOT.glob("sub-*/ses-*/beh/*_beh.tsv"))
-print(f"   {len(tsv_files)} fichiers TSV trouvés\n")
+log.info(f"   {len(tsv_files)} fichiers TSV trouvés\n")
 
 # Grouper par tâche
 by_task: dict[str, list[pd.DataFrame]] = {t: [] for t in TASKS}
@@ -30,7 +49,7 @@ by_task: dict[str, list[pd.DataFrame]] = {t: [] for t in TASKS}
 for tsv in tsv_files:
     m = FNAME_RE.match(tsv.name)
     if not m:
-        print(f"  ⚠️  Nom inattendu, ignoré : {tsv.name}")
+        log.warning(f"  ⚠️  Nom inattendu, ignoré : {tsv.name}")
         continue
 
     subject, session, task = m.group(1), m.group(2), m.group(3)
@@ -46,10 +65,11 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 for task, frames in by_task.items():
     if not frames:
-        print(f"  ⚠️  Aucun fichier pour task-{task}")
+        log.warning(f"  ⚠️  Aucun fichier pour task-{task}")
         continue
 
     combined = pd.concat(frames, ignore_index=True)
     out_file = OUT_DIR / f"task-{task}_beh_eCRF.tsv"
     combined.to_csv(out_file, sep="\t", index=False)
-    print(f"✓ {out_file.name}  ({len(combined)} lignes, {combined['participant_id'].nunique()} sujets)")
+    log.info(f"✓ {out_file.name}  ({len(combined)} lignes, {combined['participant_id'].nunique()} sujets)")
+log.info(f"\n📝 Log sauvegardé dans : {_log_file}")
