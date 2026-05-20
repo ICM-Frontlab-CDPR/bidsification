@@ -1,0 +1,4 @@
+pourrai tu modifier le script de bidsification et one-tsv-by-modal pour faire tourner sur les temoins aussi :
+/Users/hippolyte.dreyfus/Documents/bidsification/stimSD/behavior/bids-behV6.py
+/Users/hippolyte.dreyfus/Documents/bidsification/stimSD/behavior/one-tsv-by-modalV6.py 
+/Volumes/levy/raw/valerocabre/stimSD/Data/sourcedata/1_DATA/1_RAW/2_TEMOINS
