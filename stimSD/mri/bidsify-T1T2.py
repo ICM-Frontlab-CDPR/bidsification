@@ -4,7 +4,7 @@ Bidsification des T1w et FLAIR depuis les derivatives stimSD-mathilde.
 Structure source : STIM_SD_001_XXXX_YY_P / <date> / S_*_Sag_3D-T1w_BRAVO_1mm / v_*.nii
                                                       S_*_Sag_cube_FLAIR*     / v_*.nii
 
-Destination : /Volumes/levy/raw/valerocabre/stimSD/Data/bids-mri_tmp/
+Destination : /network/iss/levy/raw/valerocabre/stimSD/Data/bids-mri_tmp/
   sub-XXXX/anat/sub-XXXX_T1w.nii
   sub-XXXX/anat/sub-XXXX_FLAIR.nii
 """
@@ -12,8 +12,8 @@ import re
 import shutil
 from pathlib import Path
 
-SRC_ROOT = Path("/Volumes/levy/raw/valerocabre/stimSD/Data/derivatives/stimSD-mathilde/Database_STIM-SD_diffusion/STIM-SD_baseline")
-DST_ROOT = Path("/Volumes/levy/raw/valerocabre/stimSD/Data/bids-mri_tmp")
+SRC_ROOT = Path("/network/iss/levy/raw/valerocabre/stimSD/Data/derivatives/stimSD-mathilde/Database_STIM-SD_diffusion/STIM-SD_baseline")
+DST_ROOT = Path("/network/iss/levy/raw/valerocabre/stimSD/Data/bids-mri_tmp")
 
 # Pattern: STIM_SD_001_XXXX_YY_P → extract XXXX
 FOLDER_RE = re.compile(r"^STIM_SD_\d{3}_(\d{4})_[A-Z]+_[A-Z]+$")
