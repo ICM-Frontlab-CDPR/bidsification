@@ -1,12 +1,8 @@
 #!/usr/bin/env python3
 """
-Bidsification des T1w et FLAIR depuis les sourcedata stimSD.
-Découverte des fichiers directement sur disque par pattern glob,
-sans dépendre du CSV (qui contient des chemins avec espaces).
-
-Patterns :
-  T1   : *Sag_3D-T1w_BRAVO_1mm_*.nii
-  FLAIR: *Sag_cube_FLAIR_*.nii
+Bidsification des T1w et FLAIR depuis les derivatives stimSD-mathilde.
+Structure source : STIM_SD_001_XXXX_YY_P / <date> / S_*_Sag_3D-T1w_BRAVO_1mm / v_*.nii
+                                                      S_*_Sag_cube_FLAIR*     / v_*.nii
 
 Destination : /Volumes/levy/raw/valerocabre/stimSD/Data/bids-mri_tmp/
   sub-XXXX/anat/sub-XXXX_T1w.nii
@@ -16,11 +12,11 @@ import re
 import shutil
 from pathlib import Path
 
-SRC_ROOT = Path("/network/iss/levy/raw/valerocabre/stimSD/Data/sourcedata/1_DATA/1_RAW/1_PATIENTS")
-DST_ROOT = Path("/network/iss/levy/raw/valerocabre/stimSD/Data/bids-mri_tmp")
+SRC_ROOT = Path("/Volumes/levy/raw/valerocabre/stimSD/Data/derivatives/stimSD-mathilde/Database_STIM-SD_diffusion/STIM-SD_baseline")
+DST_ROOT = Path("/Volumes/levy/raw/valerocabre/stimSD/Data/bids-mri_tmp")
 
-# Pattern pour extraire le numéro de sujet depuis le dossier "001-XXXX-YYY"
-FOLDER_RE = re.compile(r"^\d{3}-(\d{4})-[A-Z]+$")
+# Pattern: STIM_SD_001_XXXX_YY_P → extract XXXX
+FOLDER_RE = re.compile(r"^STIM_SD_\d{3}_(\d{4})_[A-Z]+_[A-Z]+$")
 
 for patient_dir in sorted(SRC_ROOT.iterdir()):
     if not patient_dir.is_dir():
@@ -31,30 +27,39 @@ for patient_dir in sorted(SRC_ROOT.iterdir()):
     sub_id = m.group(1)
     bids_sub = f"sub-{sub_id}"
 
-    nifti_dir = patient_dir / "2_TEP-IRM" / "Baseline" / "Nifti"
-    if not nifti_dir.exists():
-        print(f"[SKIP] no Nifti dir: {nifti_dir}")
+    date_dirs = [d for d in sorted(patient_dir.iterdir()) if d.is_dir()]
+    if not date_dirs:
+        print(f"[SKIP] no session dir: {patient_dir.name}")
         continue
+    session_dir = date_dirs[0]
 
     sub_out = DST_ROOT / bids_sub / "anat"
     sub_out.mkdir(parents=True, exist_ok=True)
 
     # T1
-    t1_matches = list(nifti_dir.glob("*Sag_3D-T1w_BRAVO_1mm_*.nii"))
-    if t1_matches:
-        src = t1_matches[0]
-        dst = sub_out / f"{bids_sub}_T1w.nii"
-        shutil.copy2(src, dst)
-        print(f"[OK] T1   : {bids_sub}  <-  {src.name}")
+    t1_series = sorted(session_dir.glob("S_*_Sag_3D-T1w_BRAVO_1mm"))
+    if t1_series:
+        t1_niis = list(t1_series[0].glob("v_*.nii"))
+        if t1_niis:
+            src = t1_niis[0]
+            dst = sub_out / f"{bids_sub}_T1w.nii"
+            shutil.copy2(src, dst)
+            print(f"[OK] T1   : {bids_sub}  <-  {src.name}")
+        else:
+            print(f"[MISS] T1 : {bids_sub}  (no v_*.nii in {t1_series[0].name})")
     else:
-        print(f"[MISS] T1 : {bids_sub}  (no match in {nifti_dir})")
+        print(f"[MISS] T1 : {bids_sub}  (no T1w series in {session_dir.name})")
 
     # FLAIR
-    flair_matches = list(nifti_dir.glob("*Sag_cube_FLAIR_*.nii"))
-    if flair_matches:
-        src = flair_matches[0]
-        dst = sub_out / f"{bids_sub}_FLAIR.nii"
-        shutil.copy2(src, dst)
-        print(f"[OK] FLAIR: {bids_sub}  <-  {src.name}")
+    flair_series = sorted(session_dir.glob("S_*_Sag_cube_FLAIR*"))
+    if flair_series:
+        flair_niis = list(flair_series[0].glob("v_*.nii"))
+        if flair_niis:
+            src = flair_niis[0]
+            dst = sub_out / f"{bids_sub}_FLAIR.nii"
+            shutil.copy2(src, dst)
+            print(f"[OK] FLAIR: {bids_sub}  <-  {src.name}")
+        else:
+            print(f"[MISS] FLAIR: {bids_sub}  (no v_*.nii in {flair_series[0].name})")
     else:
-        print(f"[MISS] FLAIR: {bids_sub}  (no match in {nifti_dir})")
+        print(f"[MISS] FLAIR: {bids_sub}  (no FLAIR series in {session_dir.name})")
