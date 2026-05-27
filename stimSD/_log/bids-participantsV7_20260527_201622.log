@@ -1,0 +1,104 @@
+📝 Log : /Users/hippolyte.dreyfus/Documents/bidsification/stimSD/_log/bids-participantsV7_20260527_201622.log
+
+🔎 Scan de /Volumes/levy/raw/valerocabre/stimSD/Data/sourcedata/1_DATA/1_RAW/1_PATIENTS ...
+  ⚠️  Pas de correspondance eCRF pour '0X-00X-Initiale' (norm='0x00xinitiale') → ignoré
+  ⚠️  Pas de correspondance eCRF pour '0X-00X-Initiale' (norm='0x00xinitiale') → ignoré
+🔎 Scan de /Volumes/levy/raw/valerocabre/stimSD/Data/sourcedata/1_DATA/1_RAW/2_TEMOINS ...
+🔎 Scan de /Volumes/levy/raw/valerocabre/stimSD/Data/sourcedata/toni_data (fallback patients manquants) ...
+  ⚠️  toni_data: pas de correspondance eCRF pour '000-00053-AB' (norm='00000053ab') → ignoré
+  ⏭️  toni_data: 001-0007-ME déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0001-CMC déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0014-BS déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0016-BJC déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0018-JC déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0020-RN déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0021-RP déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0005-LS déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0030-GE déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0031-GS déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0032-HB déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0033-PM déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0035-LC déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0037-TJ déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0004-MA déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0041-PE déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0046-OP déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0047-HJ déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0049-GM déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0053-MT déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0054-DC déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0055-BM déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0056-GC déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0057-HJ déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0058-TC déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0008-LD déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0010-LM déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0017-KV déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0022-LM déjà couvert par PATIENTS_DIR → ignoré
+  ⏭️  toni_data: 001-0006-CV déjà couvert par PATIENTS_DIR → ignoré
+🔍 31 patients + 8 toni_data + 20 témoins = 59 total
+
+  ✓ [patient] 001-0001-CMC          age= 68  sex=F  hand=R  mms=16
+  ✓ [patient] 001-0004-MA           age= 71  sex=M  hand=R  mms=25
+  ✓ [patient] 001-0005-LS           age= 64  sex=M  hand=R  mms=n/a
+  ⏭️  001-0005-LS déjà traité
+  ✓ [patient] 001-0006-CV           age= 72  sex=M  hand=R  mms=n/a
+  ✓ [patient] 001-0007-ME           age= 78  sex=M  hand=R  mms=26
+  ✓ [patient] 001-0008-LD           age= 70  sex=M  hand=R  mms=28
+  ✓ [patient] 001-0010-LM           age= 65  sex=F  hand=R  mms=27
+  ✓ [patient] 001-0014-BS           age= 75  sex=F  hand=L  mms=19
+  ✓ [patient] 001-0016-BJC          age= 61  sex=n/a  hand=R  mms=16
+  ✓ [patient] 001-0017-KV           age= 72  sex=F  hand=R  mms=26
+  ✓ [patient] 001-0018-JC           age= 66  sex=M  hand=R  mms=21
+  ✓ [patient] 001-0020-RN           age= 73  sex=F  hand=R  mms=24
+  ✓ [patient] 001-0021-RP           age= 66  sex=M  hand=R  mms=27
+  ✓ [patient] 001-0022-LM           age= 76  sex=F  hand=R  mms=23
+  ✓ [patient] 001-0030-GE           age= 57  sex=M  hand=R  mms=27
+  ✓ [patient] 001-0031-GS           age= 47  sex=F  hand=R  mms=26
+  ✓ [patient] 001-0032-HB           age= 67  sex=M  hand=R  mms=18
+  ✓ [patient] 001-0033-PM           age= 65  sex=F  hand=R  mms=26
+  ✓ [patient] 001-0035-LC           age= 59  sex=F  hand=R  mms=29
+  ✓ [patient] 001-0037-TJ           age=66 ans  sex=M  hand=R  mms=30
+  ✓ [patient] 001-0041-PE           age=66 ans  sex=F  hand=R  mms=28
+  ✓ [patient] 001-0046-OP           age=66 ans  sex=F  hand=R  mms=25
+  ✓ [patient] 001-0047-HJ           age=66 ans  sex=M  hand=R  mms=24
+  ✓ [patient] 001-0049-GM           age=68 ans  sex=F  hand=R  mms=20
+  ✓ [patient] 001-0053-MT           age= 70  sex=masculin  hand=R  mms=23
+  ✓ [patient] 001-0054-DC           age= 75  sex=F  hand=R  mms=27/30
+  ✓ [patient] 001-0055-BM           age= 52  sex=féminin  hand=R  mms=29/30
+  ✓ [patient] 001-0056-GC           age= 79  sex=masculin  hand=R  mms=28/30
+  ✓ [patient] 001-0057-HJ           age= 60  sex=M  hand=R  mms=24/30
+  ✓ [patient] 001-0058-TC           age= 69  sex=M  hand=R  mms=24
+  ✓ [patient] 001-0048-LA           age=n/a  sex=n/a  hand=n/a  mms=n/a
+  ✓ [patient] 001-0059-FL           age=n/a  sex=n/a  hand=n/a  mms=n/a
+  ✓ [patient] 001-0060-GL           age=n/a  sex=n/a  hand=n/a  mms=n/a
+  ✓ [patient] 001-0061-PM           age=n/a  sex=n/a  hand=n/a  mms=n/a
+  ✓ [patient] 001-0062-PM           age=n/a  sex=n/a  hand=n/a  mms=n/a
+  ✓ [patient] 001-0063-DD           age=n/a  sex=n/a  hand=n/a  mms=n/a
+  ✓ [patient] 001-0064-RD           age= 56  sex=M  hand=n/a  mms=n/a
+  ✓ [patient] 001-0065-BA           age=n/a  sex=n/a  hand=n/a  mms=n/a
+  ⚠️  001-0011-CJ-T: feuille Patient/Patiente/PAT absente dans 001-0010-CJ-T.xlsx
+  ⚠️  001-0012-MM-T: feuille Patient/Patiente/PAT absente dans 001-0011-MM-T.xlsx
+  ⚠️  001-0013-LB-T: feuille Patient/Patiente/PAT absente dans 001-0015-LB.xlsx
+  ⚠️  001-0015-GP-T: feuille Patient/Patiente/PAT absente dans 001-0016-GP.xlsx
+  ⚠️  001-0019-KY-T: feuille Patient/Patiente/PAT absente dans 001-0020-K.xlsx
+  ⚠️  001-0024-GJ-T: feuille Patient/Patiente/PAT absente dans 001-0023-GJ.xlsx
+  ⚠️  001-0025-MR-T: feuille Patient/Patiente/PAT absente dans 01-0025-MR-T.xlsx
+  ⚠️  001-0026-RY-T: feuille Patient/Patiente/PAT absente dans 00-0026-RY-T.xlsx
+  ⚠️  001-0028-TE-T: feuille Patient/Patiente/PAT absente dans 001-0030-TE-T.xlsx
+  ⚠️  001-0029-VB-T: feuille Patient/Patiente/PAT absente dans 001-0031-VB.xlsx
+  ✓ [temoin ] 001-0036-PD-T         age=n/a  sex=n/a  hand=n/a  mms=n/a
+  ✓ [temoin ] 001-0038-TP-T         age=n/a  sex=n/a  hand=n/a  mms=n/a
+  ✓ [temoin ] 001-0039-CM-T         age=n/a  sex=n/a  hand=n/a  mms=n/a
+  ✓ [temoin ] 001-0040-LM-T         age= 75  sex=F  hand=R  mms=28
+  ✓ [temoin ] 001-0042-LM-T         age=n/a  sex=n/a  hand=n/a  mms=n/a
+  ✓ [temoin ] 001-0043-PJ-T         age=n/a  sex=n/a  hand=n/a  mms=n/a
+  ✓ [temoin ] 001-0044-DC-T         age=n/a  sex=n/a  hand=n/a  mms=n/a
+  ✓ [temoin ] 001-0045-PO-T         age= 66  sex=M  hand=R  mms=n/a
+  ✓ [temoin ] 001-0051-RD-T         age= 72  sex=F  hand=R  mms=29
+  ✓ [temoin ] 001-0052-AM-T         age=n/a  sex=n/a  hand=n/a  mms=n/a
+
+✅ /Volumes/levy/raw/valerocabre/stimSD/Data/bids-V8-eCRF/participants.tsv
+   58 participants  |  colonnes : ['participant_id', 'group', 'age', 'sex', 'handedness', 'education', 'disease_onset_year', 'diagnosis_year', 'consent_date', 'mms', 'madrs', 'bref', 'mattis', 'bdae_severity', 'do80_score']
+
+📝 Log : /Users/hippolyte.dreyfus/Documents/bidsification/stimSD/_log/bids-participantsV7_20260527_201622.log
