@@ -1,0 +1,1 @@
+/Volumes/levy/raw/valerocabre/stimSD/Data/sourcedata/1_DATA/1_RAW/1_PATIENTS/001-0008-LD/2_TEP-IRM/Baseline/Nifti>>>
