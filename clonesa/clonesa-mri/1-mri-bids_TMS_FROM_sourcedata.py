@@ -2,16 +2,16 @@
 """
 mri-bids_TMS_FROM_sourcedata.py
 ================================
-Bidsifie les IRM MP2RAGE CLONESA-TMS vers bids/ BIDS.
+Bidsifie les IRM CLONESA-TMS : un seul T1w par sujet.
 
 Source  : ClonesaTMS/sourcedata/__mri__/
-Sortie  : ClonesaTMS/bids/sub-XXXX/anat/
+Sortie  : ClonesaTMS/bids/sub-XXXX/anat/sub-XXXX_T1w.nii.gz
 
-Fichiers copiés (compressés en .nii.gz) :
-  v_*_UNI_Images.nii   → sub-XXXX_UNIT1.nii.gz   (raw UNI, fallback MPRAGEised)
-  v_*_INV1.nii         → sub-XXXX_inv-1_MP2RAGE.nii.gz
-  v_*_INV2.nii         → sub-XXXX_inv-2_MP2RAGE.nii.gz
-  + JSON sidecars si présents
+Priorité de sélection du T1w :
+  1. v_*_UNI_Images.nii       (MP2RAGE brut, meilleure qualité)
+  2. v_*_MPRAGEised.nii       (MP2RAGE post-traité)
+  3. Premier .nii anatomique  (T1 Brainsight, ex. clonesa_g2_004_dlPFC.nii)
+  + JSON sidecar si présent
 
 Découverte des sujets :
   CLONESA_002_XXXX/ → sub-XXXX   (prioritaire)
@@ -28,14 +28,14 @@ from pathlib import Path
 
 # ── Chemins ──────────────────────────────────────────────────────────────────
 SRC_ROOT = Path(
-    "/network/iss/levy/raw/valerocabre/clonesa/Data/ClonesaTMS/sourcedata/__mri__"
+    "/Volumes/levy/raw/valerocabre/clonesa/Data/ClonesaTMS/sourcedata/__mri__"
 )
 BIDS_ROOT = Path(
-    "/network/iss/levy/raw/valerocabre/clonesa/Data/ClonesaTMS/bids"
+    "/Volumes/levy/raw/valerocabre/clonesa/Data/ClonesaTMS/bids"
 )
 
 # ── Logging ──────────────────────────────────────────────────────────────────
-_LOG_DIR = Path("/Users/hippolyte.dreyfus/Documents/bidsification/clonesa/_log")
+_LOG_DIR = Path("/network/iss/home/hippolyte.dreyfus/Documents/bidsification/clonesa/_log")
 _LOG_DIR.mkdir(parents=True, exist_ok=True)
 _log_file = _LOG_DIR / f"mri-bids-TMS_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
 logging.basicConfig(
@@ -49,7 +49,10 @@ logging.basicConfig(
 log = logging.getLogger()
 log.info(f"📝 Log : {_log_file}\n")
 
-# Sous-dossiers SPM/FreeSurfer/SimNIBS à exclure de la recherche
+# Préfixes SPM/FreeSurfer indiquant des dérivés à exclure
+_DERIVED_PREFIX = re.compile(r"^(mean|iy_|mwp|p0|wm|y_|rv_|wrv|ww|target|wtarget)")
+
+# Sous-dossiers d'artefacts à exclure de la recherche
 _EXCLUDE_DIRS = {
     "mri", "surf", "label", "report",
     "presurf_MPRAGEise", "presurf_biascorrect",
@@ -95,57 +98,50 @@ def _copy_json(src_nii: Path, dst_nii_gz: Path) -> None:
 
 def process_subject(subject_dir: Path, sub_id: str) -> bool:
     """
-    Bidsifie un sujet. Retourne True si au moins un fichier a été trouvé.
+    Bidsifie un sujet en cherchant UN seul T1w. Retourne True si trouvé.
+    Priorité : UNI brut > MPRAGEised > premier .nii anatomique (Brainsight).
     """
     anat_dir = BIDS_ROOT / f"sub-{sub_id}" / "anat"
     prefix = f"sub-{sub_id}"
-    found_any = False
 
-    # ── UNI (UNIT1) ───────────────────────────────────────────────────────────
-    uni_candidates = _find_nii(subject_dir, r"UNI_Images", exclude_pattern=r"MPRAGEised")
-    if not uni_candidates:
-        # Fallback : MPRAGEised (préférer v_ vs dérivés mean/rv/wrv)
+    src: Path | None = None
+    label: str = ""
+
+    # 1. MP2RAGE UNI brut
+    uni = _find_nii(subject_dir, r"UNI_Images", exclude_pattern=r"MPRAGEised")
+    if uni:
+        src, label = uni[0], "UNI"
+
+    # 2. MPRAGEised (v_ uniquement, pas les dérivés SPM)
+    if src is None:
         mprage = _find_nii(subject_dir, r"MPRAGEised")
-        mprage = [p for p in mprage
-                  if not re.match(r"(mean|iy_|mwp|p0|wm|y_|rv_|wrv|ww)", p.name)]
-        uni_candidates = mprage
+        mprage = [p for p in mprage if not _DERIVED_PREFIX.match(p.name)]
+        if mprage:
+            src, label = mprage[0], "MPRAGEised"
 
-    if uni_candidates:
-        src = uni_candidates[0]
-        dst = anat_dir / f"{prefix}_UNIT1.nii.gz"
-        _compress_copy(src, dst)
-        _copy_json(src, dst)
-        label = "MPRAGEised" if "MPRAGEised" in src.name else "UNI"
-        log.info(f"  ✓ UNIT1  [{label}] {src.name}")
-        found_any = True
-    else:
-        log.warning(f"  ⚠️  UNIT1 introuvable")
+    # 3. Fallback : premier .nii anatomique non-dérivé du dossier sujet
+    if src is None:
+        candidates = [
+            p for p in subject_dir.rglob("*.nii")
+            if not _is_excluded(p, subject_dir)
+            and not _DERIVED_PREFIX.match(p.name)
+            and not re.search(r"INV[12]", p.name, re.IGNORECASE)
+            and not re.search(r"MPRAGEised", p.name)
+            and not p.suffix == ".zip"
+        ]
+        candidates.sort(key=lambda p: len(p.parts))
+        if candidates:
+            src, label = candidates[0], "T1-Brainsight"
 
-    # ── INV1 ─────────────────────────────────────────────────────────────────
-    inv1_cands = _find_nii(subject_dir, r"INV1", exclude_pattern=r"MPRAGEised")
-    if inv1_cands:
-        src = inv1_cands[0]
-        dst = anat_dir / f"{prefix}_inv-1_MP2RAGE.nii.gz"
-        _compress_copy(src, dst)
-        _copy_json(src, dst)
-        log.info(f"  ✓ INV1   {src.name}")
-        found_any = True
-    else:
-        log.debug(f"  –  INV1 absent")
+    if src is None:
+        log.warning(f"  ⚠️  Aucun T1w trouvé")
+        return False
 
-    # ── INV2 ─────────────────────────────────────────────────────────────────
-    inv2_cands = _find_nii(subject_dir, r"INV2", exclude_pattern=r"MPRAGEised")
-    if inv2_cands:
-        src = inv2_cands[0]
-        dst = anat_dir / f"{prefix}_inv-2_MP2RAGE.nii.gz"
-        _compress_copy(src, dst)
-        _copy_json(src, dst)
-        log.info(f"  ✓ INV2   {src.name}")
-        found_any = True
-    else:
-        log.debug(f"  –  INV2 absent")
-
-    return found_any
+    dst = anat_dir / f"{prefix}_T1w.nii.gz"
+    _compress_copy(src, dst)
+    _copy_json(src, dst)
+    log.info(f"  ✓ T1w [{label}] {src.name}")
+    return True
 
 
 # ── Découverte des sujets ─────────────────────────────────────────────────────
