@@ -26,11 +26,11 @@ SRC_ROOT = Path(
     "/CLONESA_FOLDER_organized/CLONESA_tACS/MRIs"
 )
 BIDS_ROOT = Path(
-    "/network/iss/levy/raw/valerocabre/clonesa/Data/_CLONESA_MRI/bids"
+    "/network/iss/levy/raw/valerocabre/clonesa/Data/ClonesaTMS/bids"
 )
 
 # ── Logging ──────────────────────────────────────────────────────────────────
-_LOG_DIR = Path("/network/iss/home/hippolyte.dreyfus/bidsification/clonesa/_log"). 
+_LOG_DIR = Path("/network/iss/home/hippolyte.dreyfus/bidsification/clonesa/_log")
 _LOG_DIR.mkdir(parents=True, exist_ok=True)
 _log_file = _LOG_DIR / f"mri-bids_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
 logging.basicConfig(
