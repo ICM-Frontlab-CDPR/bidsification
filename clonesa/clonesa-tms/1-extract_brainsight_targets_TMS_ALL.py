@@ -17,6 +17,7 @@ import re
 import csv
 from datetime import datetime
 from pathlib import Path
+from typing import Optional
 
 # ── Import de la classe existante ─────────────────────────────────────────────
 # "1-extract_brainsight_targets_ALL.py" commence par un chiffre → import via importlib
@@ -24,7 +25,7 @@ import importlib.util as _ilu
 _SCRIPT_DIR = Path(__file__).parent
 _spec = _ilu.spec_from_file_location(
     "brainsight_extractor",
-    _SCRIPT_DIR / "1-extract_brainsight_targets_ALL.py",
+    _SCRIPT_DIR / "1-extract_brainsight_targets.py",
 )
 _mod = _ilu.module_from_spec(_spec)
 _spec.loader.exec_module(_mod)
@@ -67,7 +68,7 @@ _MANUAL = {
 _SKIP = {"Other", "TONI MRI", "CLONESA_mislabbeled_Xnat", "sub-001", "sub_032"}
 
 
-def folder_to_sub_id(name: str) -> str | None:
+def folder_to_sub_id(name: str) -> Optional[str]:
     m = CLONESA_RE.match(name)
     if m:
         return m.group(1)
