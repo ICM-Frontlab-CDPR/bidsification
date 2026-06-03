@@ -14,26 +14,32 @@ Sortie  : ClonesaTMS/derivatives/brainsight/sub-XXXX/
 """
 import logging
 import re
-import sys
 import csv
 from datetime import datetime
 from pathlib import Path
 
 # ── Import de la classe existante ─────────────────────────────────────────────
+# "1-extract_brainsight_targets_ALL.py" commence par un chiffre → import via importlib
+import importlib.util as _ilu
 _SCRIPT_DIR = Path(__file__).parent
-sys.path.insert(0, str(_SCRIPT_DIR))
-from extract_brainsight_targets_ALL import BrainsightExtractor  # noqa: E402
+_spec = _ilu.spec_from_file_location(
+    "brainsight_extractor",
+    _SCRIPT_DIR / "1-extract_brainsight_targets_ALL.py",
+)
+_mod = _ilu.module_from_spec(_spec)
+_spec.loader.exec_module(_mod)
+BrainsightExtractor = _mod.BrainsightExtractor
 
 # ── Chemins ──────────────────────────────────────────────────────────────────
 SRC_ROOT = Path(
-    "/Volumes/levy/raw/valerocabre/clonesa/Data/ClonesaTMS/sourcedata/__mri__"
+    "/network/iss/levy/raw/valerocabre/clonesa/Data/ClonesaTMS/sourcedata/__mri__"
 )
 OUT_ROOT = Path(
-    "/Volumes/levy/raw/valerocabre/clonesa/Data/ClonesaTMS/derivatives/brainsight"
+    "/network/iss/levy/raw/valerocabre/clonesa/Data/ClonesaTMS/derivatives/brainsight"
 )
 
 # ── Logging ──────────────────────────────────────────────────────────────────
-_LOG_DIR = Path("/Users/hippolyte.dreyfus/Documents/bidsification/clonesa/_log")
+_LOG_DIR = Path("/network/iss/home/hippolyte.dreyfus/Documents/bidsification/clonesa/_log")
 _LOG_DIR.mkdir(parents=True, exist_ok=True)
 _log_file = _LOG_DIR / f"extract-brainsight-TMS_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
 logging.basicConfig(
