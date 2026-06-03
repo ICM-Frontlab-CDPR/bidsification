@@ -36,7 +36,7 @@ SRC_ROOT = Path(
     "/network/iss/levy/raw/valerocabre/clonesa/Data/ClonesaTMS/sourcedata/__mri__"
 )
 OUT_ROOT = Path(
-    "/network/iss/levy/raw/valerocabre/clonesa/Data/ClonesaTMS/derivatives/brainsight"
+    "/network/iss/levy/raw/valerocabre/clonesa/Data/ClonesaTMS/bids-brainsight"
 )
 
 # ── Logging ──────────────────────────────────────────────────────────────────
