@@ -3,6 +3,7 @@ import numpy as np
 import nibabel as nib
 from nilearn import plotting #,image
 import matplotlib.pyplot as plt
+from matplotlib.colors import ListedColormap
 
 print("Loading T1 image...")
 t1_path = "/Users/hippolyte.dreyfus/Desktop/_clonesa/clonesaTMS/bids_mri/sub-0001/anat/sub-0001_T1w.nii.gz"
@@ -16,6 +17,11 @@ sphere_files = sorted([f for f in os.listdir(output_folder) if f.endswith('.nii'
 sphere_paths = [os.path.join(output_folder, f) for f in sphere_files]
 n_spheres = len(sphere_paths)
 print(f"Found {n_spheres} sphere(s).")
+
+# Limit to first 10 for preview
+n_spheres = min(n_spheres, 10)
+sphere_files = sphere_files[:n_spheres]
+sphere_paths = sphere_paths[:n_spheres]
 
 cmap = plt.cm.coolwarm
 colors = [cmap(i / (n_spheres - 1)) for i in range(n_spheres)]
@@ -33,7 +39,7 @@ for i, (sphere_path, color) in enumerate(zip(sphere_paths, colors)):
         bg_img=t1_img,
         axes=axes[i],
         title=sphere_files[i],
-        cmap=plt.cm.colors.ListedColormap([color]),
+        cmap=ListedColormap([color, color]),
         alpha=0.7
     )
     print(f"Sphere {i + 1}/{n_spheres} plotted.")
