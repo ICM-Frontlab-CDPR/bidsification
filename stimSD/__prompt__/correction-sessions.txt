@@ -1,0 +1,32 @@
+Il ya quelques derniers petits detail de formatage a resoudre pour quelques participants:
+Il faut donc modfier le premier ficheir de la chaine de formatage : 
+/Users/hippolyte.dreyfus/Documents/bidsification/stimSD/behavior/bids-behV9-toni_data-last-corrections.py
+
+Les numeros de participants que je te donne sont a comprendre selon la nomenclature ECRF.
+Attention le pat de la racine à changer : /Volumes/levy/valerocabre/stimSD/Data/
+
+1-Les participants suivants ont des sessions en trop :
+0006-CV (6 au lieu de 4) --> enelve les deux dernieres sessions
+0010-LH (5 au lieu de 4) --> tu peux elenver la derniere session (session-5) attention le fichier cest 001-009-LM
+0014-BS (5 au lieu de 4) --> tu peux elenver la derniere session (session-5) attention le fichier cest 001-0012-BS
+0021-RP (5 au lieu de 4) --> tu peux elenver la derniere session (session-5)
+0022-LM (5 au lieu de 4) --> tu peux elenver la derniere session (session-5) attention le fichier cest 01-0024LLM
+0032-HB (6 au lieu de 4) --> enelve les deux dernieres sessions attention nom = 001-0034-HB
+Je te laisse regarder dans les fichiers de sourcedata pour checker cela. Mais a priori il faut juste appliquer un filter pour ne pas prendre les sessions sup a 5 ?
+
+
+
+2-Ensuite le particicpant 0030-GE:
+'/Volumes/levy/valerocabre/stimSD/Data/sourcedata/1_DATA/1_RAW/1_PATIENTS/001-0030-GE/3_TESTS LANGAGIERS/001-0032-EG (3)der.xlsx'
+il faut prnedre les sessions bis et non les sessions que jai numerotées Nan (de maniere a navoir que les 4 seances et a enlever la seance qui a été refaite par la suite)
+
+
+3-Il faudrait que l'information patient ou temoin soit rajouter comme derniere colonne dans les fichiers crée par 
+/Users/hippolyte.dreyfus/Documents/bidsification/stimSD/behavior/one-tsv-by-modalV9.py (les fichiers qui regroupent tous les participants en un tsv)
+
+Fais attention que tous les paths de ces 3 nouveaux fichiers soient bien a jour.
+/Users/hippolyte.dreyfus/Documents/bidsification/stimSD/behavior/bids-behV9-toni_data-last-corrections.py
+/Users/hippolyte.dreyfus/Documents/bidsification/stimSD/behavior/bids-participantsV9.py
+/Users/hippolyte.dreyfus/Documents/bidsification/stimSD/behavior/one-tsv-by-modalV9.py
+
+Je pourrais ensuite relancer tout ca proprement.
