@@ -50,19 +50,19 @@ print(f"📝 Log : {_log_file}\n")
 
 # ── Chemins ───────────────────────────────────────────────────────────────────
 PATIENTS_DIR = Path(
-    "/Volumes/levy/raw/valerocabre/stimSD/Data/sourcedata/1_DATA/1_RAW/1_PATIENTS"
+    "/Volumes/levy/valerocabre/stimSD/Data/sourcedata/1_DATA/1_RAW/1_PATIENTS"
 )
 TEMOINS_DIR = Path(
-    "/Volumes/levy/raw/valerocabre/stimSD/Data/sourcedata/1_DATA/1_RAW/2_TEMOINS"
+    "/Volumes/levy/valerocabre/stimSD/Data/sourcedata/1_DATA/1_RAW/2_TEMOINS"
 )
 TONI_DATA_DIR = Path(
-    "/Volumes/levy/raw/valerocabre/stimSD/Data/sourcedata/toni_data"
+    "/Volumes/levy/valerocabre/stimSD/Data/sourcedata/toni_data"
 )
 BIDS_ROOT = Path(
-    "/Volumes/levy/raw/valerocabre/stimSD/Data/bids-V8-eCRF"
+    "/Volumes/levy/valerocabre/stimSD/Data/bids-V9-eCRF"
 )
 RANDO_XLSX = Path(
-    "/Volumes/levy/raw/valerocabre/stimSD/Data/STIM_SD_Randomization_List_Nov_2025_Full.xlsx"
+    "/Volumes/levy/valerocabre/stimSD/Data/STIM_SD_Randomization_List_Nov_2025_Full.xlsx"
 )
 
 _rando = pd.read_excel(RANDO_XLSX)
@@ -604,7 +604,25 @@ for xlsx, ecrf_name in xlsx_ecrf_list:
 
             seen: dict[str, int] = {}
             for bidx, (ses_val, block) in enumerate(blocks, 1):
+                # 001-0030-GE : exclure les blocs avec session Nan
+                # (séances initiales refaites → garder uniquement les sessions "bis")
+                if ecrf_name == "001-0030-GE":
+                    is_nan_ses = (
+                        ses_val is None
+                        or (not isinstance(ses_val, str) and pd.isna(ses_val))
+                        or str(ses_val).strip().lower() in ("nan", "none", "")
+                    )
+                    if is_nan_ses:
+                        log.info(f"    ⏭️  001-0030-GE : bloc {bidx} (session=Nan) ignoré → garder les bis")
+                        continue
+
                 ses = session_label(ses_val) if ses_val is not None else f"ses-{bidx:02d}"
+
+                # Filtre global : ne pas conserver les sessions > ses-04
+                ses_num_match = re.search(r"(\d+)", ses)
+                if ses_num_match and int(ses_num_match.group(1)) > 4:
+                    log.info(f"    ⏭️  {ses} > ses-04 ignoré ({ecrf_name})")
+                    continue
 
                 if ses in seen:
                     log.warning(

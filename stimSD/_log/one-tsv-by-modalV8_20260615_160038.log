@@ -1,0 +1,17 @@
+📝 Log : /Users/hippolyte.dreyfus/Documents/bidsification/stimSD/_log/one-tsv-by-modalV8_20260615_160038.log
+
+🔎 Scan de /Volumes/levy/valerocabre/stimSD/Data/bids-V9-eCRF ...
+   1524 fichiers TSV trouvés
+
+✓ task-asverbale_beh_eCRF_V9.tsv  (4085 lignes, 53 sujets)
+✓ task-asvisuelle_beh_eCRF_V9.tsv  (3952 lignes, 53 sujets)
+✓ task-exeverb_beh_eCRF_V9.tsv  (4186 lignes, 52 sujets)
+✓ task-exevisu_beh_eCRF_V9.tsv  (4133 lignes, 52 sujets)
+✓ task-fluencecat_beh_eCRF_V9.tsv  (1907 lignes, 49 sujets)
+✓ task-fluenceverb_beh_eCRF_V9.tsv  (2625 lignes, 48 sujets)
+✓ task-dccat_beh_eCRF_V9.tsv  (6121 lignes, 49 sujets)
+✓ task-deno_beh_eCRF_V9.tsv  (6039 lignes, 55 sujets)
+✓ task-lecture_beh_eCRF_V9.tsv  (6935 lignes, 51 sujets)
+✓ task-bip_beh_eCRF_V9.tsv  (2128 lignes, 51 sujets)
+
+📝 Log sauvegardé dans : /Users/hippolyte.dreyfus/Documents/bidsification/stimSD/_log/one-tsv-by-modalV8_20260615_160038.log

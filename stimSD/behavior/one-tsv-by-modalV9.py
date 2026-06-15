@@ -12,8 +12,8 @@ import pandas as pd
 from datetime import datetime
 from pathlib import Path
 
-BIDS_ROOT = Path("/Volumes/levy/raw/valerocabre/stimSD/Data/bids-V8-eCRF/")
-OUT_DIR   = Path("/Volumes/levy/raw/valerocabre/stimSD/Data/derivatives/beh/")
+BIDS_ROOT = Path("/Volumes/levy/valerocabre/stimSD/Data/bids-V9-eCRF/")
+OUT_DIR   = Path("/Volumes/levy/valerocabre/stimSD/Data/derivatives/beh/")
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -72,7 +72,7 @@ for tsv in tsv_files:
     group = "temoin" if subject.upper().endswith("-T") else "patient"
     df.insert(0, "participant_id", subject)
     df.insert(1, "session", session)
-    df.insert(2, "group", group)
+    df["group"] = group
     by_task[task].append(df)
 
 OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -84,7 +84,7 @@ for task in TASKS:
         continue
 
     combined = pd.concat(frames, ignore_index=True)
-    out_file = OUT_DIR / f"task-{task}_beh_eCRF_V8.tsv"
+    out_file = OUT_DIR / f"task-{task}_beh_eCRF_V9.tsv"
     combined.to_csv(out_file, sep="\t", index=False)
     log.info(
         f"✓ {out_file.name}  "

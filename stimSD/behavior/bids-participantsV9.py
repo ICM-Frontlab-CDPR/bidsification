@@ -46,19 +46,19 @@ log.info(f"📝 Log : {_log_file}\n")
 
 # ── Chemins ───────────────────────────────────────────────────────────────────
 PATIENTS_DIR = Path(
-    "/Volumes/levy/raw/valerocabre/stimSD/Data/sourcedata/1_DATA/1_RAW/1_PATIENTS"
+    "/Volumes/levy/valerocabre/stimSD/Data/sourcedata/1_DATA/1_RAW/1_PATIENTS"
 )
 TEMOINS_DIR = Path(
-    "/Volumes/levy/raw/valerocabre/stimSD/Data/sourcedata/1_DATA/1_RAW/2_TEMOINS"
+    "/Volumes/levy/valerocabre/stimSD/Data/sourcedata/1_DATA/1_RAW/2_TEMOINS"
 )
 TONI_DATA_DIR = Path(
-    "/Volumes/levy/raw/valerocabre/stimSD/Data/sourcedata/toni_data"
+    "/Volumes/levy/valerocabre/stimSD/Data/sourcedata/toni_data"
 )
 BIDS_ROOT = Path(
-    "/Volumes/levy/raw/valerocabre/stimSD/Data/bids-V8-eCRF"
+    "/Volumes/levy/valerocabre/stimSD/Data/bids-V9-eCRF"
 )
 RANDO_XLSX = Path(
-    "/Volumes/levy/raw/valerocabre/stimSD/Data/STIM_SD_Randomization_List_Nov_2025_Full.xlsx"
+    "/Volumes/levy/valerocabre/stimSD/Data/STIM_SD_Randomization_List_Nov_2025_Full.xlsx"
 )
 
 # ── Mapping eCRF (identique à V7) ─────────────────────────────────────────────
